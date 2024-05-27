@@ -29,7 +29,7 @@ class DeviceListView(ListView):
         return context
     
     
-    
+# aaa
     
 
 class DeviceCreateView(CreateView):
