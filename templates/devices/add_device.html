@@ -1,0 +1,26 @@
+<form action="{% url 'add-device' %}" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <label for="customer">Select customer: </label>
+    <select id="customer" name="customer" required>
+        {% for customer in customers %}
+            <option value="{{ customer.id }}">{{ customer.name }}</option>
+        {% endfor %}
+    </select>
+    <br>
+    <label for="name">Device name: </label>
+    <input type="text" id="name" name="name" required>
+    <br>
+    <label for="ip_address">Enter IP address: </label>
+    <input type="text" id="ip_address" name="ip_address" required>
+    <br>
+    <label for="device_type">Enter device type: </label>
+    <input type="text" id="device_type" name="device_type" required>
+    <br>
+    <label for="serial_number">Enter serial number: </label>
+    <input type="text" id="serial_number" name="serial_number" required>
+    <br>
+    <label for="qr_code">Upload QR code: </label>
+    <input type="file" id="qr_code" name="qr_code" accept="image/*" required>
+    <br>
+    <input type="submit" value="Create Device">
+</form>

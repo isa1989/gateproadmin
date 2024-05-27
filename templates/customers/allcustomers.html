@@ -1,0 +1,9 @@
+{% for customer in customers%}
+    <a href="{% url 'customer-detail' customer.id %}"><p>{{customer.name}} </p> </a>
+    <button><a href="{% url 'customer-update' customer.id %}">Edit</a></button>
+    <hr>
+{% endfor %}
+
+
+
+<a href="{% url 'customer-create'  %}"> Create new customer </a>
