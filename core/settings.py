@@ -38,7 +38,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'customer',
-    'device'
+    'device',
+    'solo',
+    'rest_framework',
+    'settings'
 ]
 
 MIDDLEWARE = [
@@ -128,8 +131,13 @@ STATICFILES_DIRS = [
 # Statik dosyaların toplandığı dizin (genellikle 'collectstatic' komutu ile kullanılır)
 # STATIC_ROOT = BASE_DIR / "staticfiles"
 
+# MEDIA_URL = '/media/'
+# MEDIA_ROOT = '/app/media/'
+
+
 MEDIA_URL = '/media/'
-MEDIA_ROOT = '/app/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
