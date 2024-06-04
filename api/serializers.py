@@ -1,6 +1,22 @@
 # serializers.py
 from rest_framework import serializers
-from customer.models import Customer
+from customer.models import Customer, OTP
+
+
+class OTPSerializer(serializers.ModelSerializer):
+    def validate_phone_number(self, value):
+        """
+        Check if the phone number has exactly 12 characters.
+        """
+        if len(value) != 12:
+            raise serializers.ValidationError(
+                "Phone number must be exactly 12 characters long."
+            )
+        return value
+
+    class Meta:
+        model = OTP
+        fields = ["phone_number", "otp_code"]
 
 
 class CustomerRegistrationSerializer(serializers.ModelSerializer):
@@ -11,7 +27,7 @@ class CustomerRegistrationSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Customer
-        fields = ['phone_number', 'first_name', 'last_name', 'register_completed']
+        fields = ["phone_number", "first_name", "last_name", "register_completed"]
 
     def validate_phone_number(self, value):
         # Check if the phone number starts with "+994"
@@ -21,5 +37,24 @@ class CustomerRegistrationSerializer(serializers.ModelSerializer):
         # Assuming OTP validation is successful
         return value
 
-    # def create(self, validated_data):
-    #     return Customer.objects.create_user(phone_number=validated_data['phone_number'])
+
+class CustomerLoginSerializer(serializers.ModelSerializer):
+    phone_number = serializers.CharField(max_length=12)
+
+    class Meta:
+        model = Customer
+        fields = ["phone_number"]
+
+    def validate_phone_number(self, value):
+        # Check if the phone number starts with "+994"
+        if not value.startswith("994"):
+            raise serializers.ValidationError("Phone number must start with 994.")
+        # Implement OTP validation logic here
+        # Assuming OTP validation is successful
+        return value
+
+
+class CustomerSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Customer
+        fields = ["first_name", "last_name", "address"]

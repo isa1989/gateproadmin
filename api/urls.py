@@ -1,9 +1,11 @@
 # api/urls.py
 from django.urls import path
-from .views import CustomerPhoneRegistrationView
+from api.views import CustomerPhoneRegistrationView, CustomerProfileEditView, CustomerPhoneLoginView, CustomerLogoutView, CustomerDeleteView
 
 urlpatterns = [
     path('register/', CustomerPhoneRegistrationView.as_view(), name='customer_phone_registration'),
-    # path('verify/', OTPVerificationView.as_view(), name='otp_verification'),
-    # Add more URL patterns as needed for other API views
+    path('login/', CustomerPhoneLoginView.as_view(), name='customer_phone_login'),
+     path('logout/', CustomerLogoutView.as_view(), name='customer_logout'),
+    path('customer/profile/edit/<int:pk>/', CustomerProfileEditView.as_view(), name='customer_profile_edit'),
+    path('customer/delete/', CustomerDeleteView.as_view(), name='customer_delete'),
 ]
