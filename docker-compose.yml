@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  smsweb:
+    restart: always
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/code
+    ports:
+      - "8009:8009"
+    depends_on:
+      - gatedb
+
+  gatedb:
+    restart: always
+    image: postgres
+    container_name: gatedb
+    ports:
+      - "5440:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: ${DATABASE_NAME}
+      POSTGRES_USER: ${DATABASE_USER}
+      POSTGRES_PASSWORD: ${DATABASE_PASS}
+    env_file:
+      - .env
+
+volumes:
+  postgres_data:

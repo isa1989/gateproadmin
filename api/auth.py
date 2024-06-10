@@ -15,9 +15,23 @@ def generate_or_update_jwt_token(phone_number):
     token_string = token.decode("utf-8") if isinstance(token, bytes) else token
     # Save or update the token instance
     token_instance, _ = CustomerToken.objects.update_or_create(
-        phone_number=phone_number, defaults={"token": token_string}
+        phone_number=phone_number,
+        defaults={"token": token_string, "issued_at": now},
     )
     return token_string
+
+
+def get_phone_number_from_token(token):
+    try:
+        decoded_token = jwt.decode(token, settings.SECRET_KEY, algorithms=["HS256"])
+        phone_number = decoded_token["phone_number"]
+        return phone_number
+    except jwt.ExpiredSignatureError:
+        # Token has expired
+        return None
+    except jwt.InvalidTokenError:
+        # Invalid token
+        return None
 
 
 def verify_jwt_token(token, phone_number):

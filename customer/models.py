@@ -33,10 +33,10 @@ class Customer(AbstractBaseUser, PermissionsMixin):
     phone_number = models.CharField(
         max_length=12, unique=True, verbose_name="Phone number"
     )
-    first_name = models.CharField(
+    name = models.CharField(
         max_length=200, null=True, blank=False, verbose_name="Customer name"
     )
-    last_name = models.CharField(
+    surname = models.CharField(
         max_length=200, null=True, blank=False, verbose_name="Customer surname"
     )
     address = models.CharField(
@@ -101,7 +101,7 @@ class CustomerToken(models.Model):
     token = models.CharField(
         max_length=300
     )  # Adjust the max_length as per your token length
-    created_at = models.DateTimeField(auto_now_add=True)
+    issued_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.phone_number
