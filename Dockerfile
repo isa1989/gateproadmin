@@ -24,7 +24,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . /gateproadmin/
 
 # Expose port 8000 to the outside world
-EXPOSE 8000
+EXPOSE 8009
 
 # Run the Django app
 CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
