@@ -155,12 +155,7 @@ USE_TZ = True
 STATIC_URL = "/static/"
 
 # Ek statik dosya dizinleri
-if DEBUG:
-    STATICFILES_DIRS = [
-        BASE_DIR / "static",
-    ]
-else:
-    STATIC_ROOT = BASE_DIR / "static/"
+STATIC_ROOT = BASE_DIR / "static/"
 
 
 # Statik dosyaların toplandığı dizin (genellikle 'collectstatic' komutu ile kullanılır)
