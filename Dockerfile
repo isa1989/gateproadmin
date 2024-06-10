@@ -17,7 +17,8 @@ RUN apt-get update && apt-get install -y \
 
 # Install Python dependencies
 COPY requirements.txt requirements.txt
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt \
+    && pip install gunicorn
     
 
 # Copy the current directory contents into the container at /app
@@ -27,4 +28,4 @@ COPY . /gateproadmin/
 EXPOSE 8009
 
 # Run the Django app
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+CMD ["gunicorn", "--bind", "0.0.0.0:8009", "gateproadmin.wsgi:application"]
