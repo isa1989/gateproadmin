@@ -1,8 +1,8 @@
 import jwt
 from datetime import datetime, timezone
 from django.conf import settings
-from customer.models import CustomerToken, OTP
-from rest_framework.exceptions import NotFound
+from customer.models import CustomerToken, OTP, Customer
+from rest_framework.exceptions import NotFound, AuthenticationFailed
 from django.utils import timezone
 
 
@@ -57,3 +57,26 @@ def validate_otp_and_generate_token(otp_code, customer_id):
     customer_instance = otp_instance.customer
     token = generate_or_update_jwt_token(customer_instance)
     return {"customer_id": customer_instance.id, "token": token}
+
+
+def get_customer_from_token(token):
+    try:
+        # Decode the JWT token
+        decoded_token = jwt.decode(token, settings.SECRET_KEY, algorithms=["HS256"])
+
+        # Extract the phone number from the decoded token payload
+        phone_number = decoded_token.get("phone_number")
+
+        # Retrieve the customer based on the phone number
+        customer = Customer.objects.get(phone_number=phone_number)
+
+        return customer
+    except jwt.ExpiredSignatureError:
+        # Handle token expiration
+        raise AuthenticationFailed("Token has expired")
+    except jwt.InvalidTokenError:
+        # Handle invalid token
+        raise AuthenticationFailed("Invalid token")
+    except Customer.DoesNotExist:
+        # Handle customer not found
+        raise AuthenticationFailed("Customer not found")
