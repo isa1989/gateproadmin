@@ -64,6 +64,7 @@ class Customer(AbstractBaseUser, PermissionsMixin):
     class Meta:
         verbose_name = "Customer"
         verbose_name_plural = "Customers"
+        ordering = ["id"]
 
     def __str__(self):
         return self.phone_number

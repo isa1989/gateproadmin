@@ -14,8 +14,15 @@ from api.product.views import (
     CreateOrUpdateProductOrder,
 )
 from api.faq.views import FAQListView, FAQDetailView, MarkFAQHelpful, MarkFAQNotHelpful
+from api.notification.views import (
+    NotificationListView,
+    NotificationDetailView,
+    UnreadNotificationCountView,
+    MarkAllNotificationsAsReadView,
+)
 
 urlpatterns = [
+    # ------------------------Auth--------------------------
     path(
         "v1/register/",
         CustomerPhoneRegistrationView.as_view(),
@@ -34,7 +41,7 @@ urlpatterns = [
         name="customer_profile_edit",
     ),
     path("customer/delete/", CustomerDeleteView.as_view(), name="customer_delete"),
-    # Endpoint for products
+    # ----------------Endpoint for products---------------------
     path("products/", ProductListView.as_view(), name="product-list"),
     path("products/<int:pk>/", ProductDetailView.as_view(), name="product-detail"),
     path(
@@ -42,7 +49,7 @@ urlpatterns = [
         CreateOrUpdateProductOrder.as_view(),
         name="create_or_update_product_order",
     ),
-    # Endpoint for FAQ
+    # ---------------------Endpoint for FAQ-----------------------
     path("faqs/", FAQListView.as_view(), name="faqs_list"),
     path("faqs/<int:id>/", FAQDetailView.as_view(), name="faq_detail"),
     path(
@@ -54,5 +61,22 @@ urlpatterns = [
         "faqs/<int:id>/not-helpful/",
         MarkFAQNotHelpful.as_view(),
         name="mark_faq_as_helpful",
+    ),
+    # -----------------------Notification--------------------------
+    path("notifications/", NotificationListView.as_view(), name="notifications-list"),
+    path(
+        "notifications/count/",
+        UnreadNotificationCountView.as_view(),
+        name="unread-count",
+    ),
+    path(
+        "notifications/read-all/",
+        MarkAllNotificationsAsReadView.as_view(),
+        name="mark_all_notifications_as_read",
+    ),
+    path(
+        "notifications/<str:pk>/",
+        NotificationDetailView.as_view(),
+        name="notification-detail",
     ),
 ]

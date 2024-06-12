@@ -14,6 +14,9 @@ class Product(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        ordering = ["id"]
+
 
 class ProductImage(models.Model):
     product = models.ForeignKey(
@@ -25,6 +28,9 @@ class ProductImage(models.Model):
 
     def __str__(self):
         return f"Image for {self.product.name}"
+
+    class Meta:
+        ordering = ["id"]
 
 
 class Order(models.Model):
@@ -42,3 +48,6 @@ class Order(models.Model):
 
     def __str__(self):
         return f"Order {self.id} - {self.customer}"
+
+    class Meta:
+        ordering = ["id"]

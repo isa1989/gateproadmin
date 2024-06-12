@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     "device",
     "product",
     "faq",
+    "notification",
     "solo",
     "settings",
 ]

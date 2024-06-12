@@ -1,6 +1,7 @@
 from rest_framework.permissions import BasePermission
 from customer.models import CustomerToken
 
+
 class IsCustomerAuthenticated(BasePermission):
     """
     Custom permission to check if a customer is authenticated.
@@ -8,12 +9,12 @@ class IsCustomerAuthenticated(BasePermission):
 
     def has_permission(self, request, view):
         # Retrieve the token from the request headers
-        token = request.headers.get('Authorization')
+        token = request.headers.get("Authorization")
         if not token:
             return False
 
         # Extract the token from the Authorization header
-        token = token.split()[1] if token.startswith('Bearer ') else token
+        token = token.split()[1] if token.startswith("Bearer ") else token
 
         try:
             # Check if the CustomerToken exists
@@ -21,7 +22,7 @@ class IsCustomerAuthenticated(BasePermission):
             return True
         except CustomerToken.DoesNotExist:
             return False
-        
+
 
 class IsOwnerOrReadOnly(BasePermission):
     """
