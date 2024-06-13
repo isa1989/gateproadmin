@@ -4,19 +4,16 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.exceptions import ValidationError
 from django.shortcuts import get_object_or_404
-from api.serializers import (
-    CustomerRegistrationSerializer,
+from api.auth.serializers import (
     CustomerSerializer,
-    CustomerLoginSerializer,
     OTPSerializer,
 )
 from customer.models import Customer, OTP, CustomerToken
 from rest_framework.permissions import AllowAny
 from api.auth.auth import (
     generate_or_update_jwt_token,
-    verify_jwt_token,
-    validate_otp_and_generate_token,
     get_phone_number_from_token,
+    get_customer_from_token,
 )
 from rest_framework.generics import RetrieveUpdateAPIView
 from rest_framework.exceptions import NotFound
@@ -188,6 +185,47 @@ class CustomerDeleteView(APIView):
         )
 
 
-class CustomerProfileEditView(RetrieveUpdateAPIView):
-    queryset = Customer.objects.all()
-    serializer_class = CustomerSerializer
+def transform_request_data(request_data):
+    transformed_data = {
+        "firebase_token": request_data.get("firebaseToken"),
+        "language": request_data.get("language"),
+        "email": request_data.get("notificationPreferences", {}).get("email"),
+        "sms": request_data.get("notificationPreferences", {}).get("sms"),
+        "push": request_data.get("notificationPreferences", {}).get("push"),
+        "name": request_data.get("name"),
+        "surname": request_data.get("surname"),
+    }
+    return transformed_data
+
+
+class ProfileUpdateAPIView(APIView):
+    permission_classes = [IsCustomerAuthenticated]
+
+    def get(self, request, *args, **kwargs):
+        token = request.headers.get("Authorization")
+        customer = get_customer_from_token(token)
+        data = {
+            "userId": customer.pk,
+            "firebaseToken": customer.firebase_token,
+            "language": "en",
+            "notificationPreferences": {
+                "email": customer.email,
+                "sms": customer.sms,
+                "push": customer.push,
+            },
+            "name": customer.name,
+            "surname": customer.surname,
+        }
+        return Response(data)
+
+    def patch(self, request, *args, **kwargs):
+        token = request.headers.get("Authorization")
+        customer = get_customer_from_token(token)
+        transformed_data = transform_request_data(request.data)
+
+        serializer = CustomerSerializer(customer, data=transformed_data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({"message": "User profile updated successfully."})
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

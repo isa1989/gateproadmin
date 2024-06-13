@@ -2,7 +2,7 @@
 from django.urls import path
 from api.auth.views import (
     CustomerPhoneRegistrationView,
-    CustomerProfileEditView,
+    ProfileUpdateAPIView,
     CustomerPhoneLoginView,
     CustomerLogoutView,
     CustomerDeleteView,
@@ -35,11 +35,6 @@ urlpatterns = [
         name="customer-verify-otp",
     ),
     path("logout/", CustomerLogoutView.as_view(), name="customer_logout"),
-    path(
-        "customer/profile/edit/<int:pk>/",
-        CustomerProfileEditView.as_view(),
-        name="customer_profile_edit",
-    ),
     path("customer/delete/", CustomerDeleteView.as_view(), name="customer_delete"),
     # ----------------Endpoint for products---------------------
     path("products/", ProductListView.as_view(), name="product-list"),
@@ -79,4 +74,6 @@ urlpatterns = [
         NotificationDetailView.as_view(),
         name="notification-detail",
     ),
+    # -----------------------User Profile API--------------------------
+    path("profile/", ProfileUpdateAPIView.as_view(), name="profile-update"),
 ]

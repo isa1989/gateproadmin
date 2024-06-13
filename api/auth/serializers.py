@@ -23,11 +23,10 @@ class CustomerRegistrationSerializer(serializers.ModelSerializer):
     phone_number = serializers.CharField(max_length=12)
     name = serializers.CharField(max_length=200, required=False)
     surname = serializers.CharField(max_length=200, required=False)
-    register_completed = serializers.BooleanField(required=False)
 
     class Meta:
         model = Customer
-        fields = ["phone_number", "name", "surname", "register_completed"]
+        fields = ["phone_number", "name", "surname"]
 
     def validate_phone_number(self, value):
         # Check if the phone number starts with "+994"
@@ -57,4 +56,12 @@ class CustomerLoginSerializer(serializers.ModelSerializer):
 class CustomerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Customer
-        fields = ["name", "surname", "phone_number"]
+        fields = [
+            "name",
+            "surname",
+            "phone_number",
+            "firebase_token",
+            "email",
+            "sms",
+            "push",
+        ]
