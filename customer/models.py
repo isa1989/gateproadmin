@@ -45,7 +45,11 @@ class Customer(AbstractBaseUser, PermissionsMixin):
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
-    firebase_token = models.CharField(max_length=255)
+    firebase_token = models.CharField(
+        max_length=255,
+        null=True,
+        blank=True,
+    )
     email = models.BooleanField(default=True)
     sms = models.BooleanField(default=True)
     push = models.BooleanField(default=True)
