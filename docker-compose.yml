@@ -1,6 +1,6 @@
 services:
   
-  gatebd:
+  gatedb:
     restart: always
     image: postgres:13
     ports:
@@ -27,9 +27,9 @@ services:
     ports:
       - "8009:8009"
     depends_on:
-      - gatebd
+      - gatedb
     environment:
-      - DATABASE_URL=postgres://gate_user:P2d6WCLvVtc3NQaVNNb@gatebd:5432/gate_db
+      - DATABASE_URL=postgres://gate_user:P2d6WCLvVtc3NQaVNNb@gatedb:5432/gate_db
     networks:
       - gate-network
 
@@ -41,7 +41,7 @@ services:
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf
     depends_on:
-      - gatebd
+      - gatedb
     networks:
       - gate-network
 
