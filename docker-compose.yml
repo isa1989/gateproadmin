@@ -41,7 +41,7 @@ services:
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf
     depends_on:
-      - gatedatabase
+      - gatebd
     networks:
       - gate-network
 
