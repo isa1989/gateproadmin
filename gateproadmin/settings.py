@@ -92,32 +92,24 @@ WSGI_APPLICATION = "gateproadmin.wsgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
-if DEBUG:
-    DATABASES = {
-        "default": {
-            "ENGINE": "django.db.backends.sqlite3",
-            "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
-        }
+# if DEBUG:
+#     DATABASES = {
+#         "default": {
+#             "ENGINE": "django.db.backends.sqlite3",
+#             "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
+#         }
+#     }
+# else:
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": os.getenv("DATABASE_NAME"),
+        "USER": os.getenv("DATABASE_USER"),
+        "PASSWORD": os.getenv("DATABASE_PASS"),
+        "HOST": os.getenv("HOST"),
+        "PORT": os.getenv("PORT"),
     }
-else:
-    DATABASES = {
-        "default": {
-            "ENGINE": "django.db.backends.postgresql",
-            "NAME": os.getenv(
-                "DATABASE_NAME"
-            ),  # Get database name from environment variable
-            "USER": os.getenv(
-                "DATABASE_USER"
-            ),  # Get database username from environment variable
-            "PASSWORD": os.getenv(
-                "DATABASE_PASS"
-            ),  # Get database password from environment variable
-            "HOST": os.getenv(
-                "HOST"
-            ),  # Docker Compose service name of your PostgreSQL container
-            "PORT": os.getenv("PORT"),  # PostgreSQL default port
-        }
-    }
+}
 
 
 # Password validation

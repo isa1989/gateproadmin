@@ -1,6 +1,22 @@
-version: '3.8'
-
 services:
+  
+  gatebd:
+    restart: always
+    image: postgres:13
+    ports:
+      - "5440:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: gate_db
+      POSTGRES_USER: gate_user
+      POSTGRES_PASSWORD: P2d6WCLvVtc3NQaVNNb
+      PGPORT: 5440
+    env_file:
+      - .env
+    networks:
+      - gate-network
+      
   gateweb:
     restart: always
     build:
@@ -11,23 +27,12 @@ services:
     ports:
       - "8009:8009"
     depends_on:
-      - gatedb
-
-  gatedb:
-    restart: always
-    image: postgres
-    container_name: gatedb
-    ports:
-      - "5440:5432"
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - gatebd
     environment:
-      POSTGRES_DB: ${DATABASE_NAME}
-      POSTGRES_USER: ${DATABASE_USER}
-      POSTGRES_PASSWORD: ${DATABASE_PASS}
-    env_file:
-      - .env
-    
+      - DATABASE_URL=postgres://gate_user:P2d6WCLvVtc3NQaVNNb@gatebd:5432/gate_db
+    networks:
+      - gate-network
+
   nginx:
     restart: always
     image: nginx
@@ -36,8 +41,13 @@ services:
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf
     depends_on:
-      - gatedb
+      - gatedatabase
+    networks:
+      - gate-network
 
 
 volumes:
   postgres_data:
+
+networks:
+  gate-network:
