@@ -3,7 +3,7 @@ from rest_framework import status
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from faq.models import FAQ
-from .serializers import FAQSerializer
+from faq.serializers import FAQSerializer
 
 
 class FAQListView(ListAPIView):
