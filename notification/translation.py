@@ -1,12 +1,9 @@
-# models.py or translation.py
-
-from django.db import models
 from modeltranslation.translator import TranslationOptions, register
-from .models import Notification
+from .models import NotifyEvent
 
 
-@register(Notification)
-class NotificationTranslationOptions(TranslationOptions):
+@register(NotifyEvent)
+class NotifyEventTranslationOptions(TranslationOptions):
     fields = (
         "title",
         "message",

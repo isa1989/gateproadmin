@@ -1,17 +1,34 @@
 from django.db import models
 from customer.models import Customer
 
-# Create your models here.
+
+class Pin(models.Model):
+    STATUS_CHOICES = [
+        ("on", "On"),
+        ("off", "Off"),
+    ]
+    status = models.CharField(max_length=10, choices=STATUS_CHOICES)
+
+    def __str__(self):
+        return f"Pin {self.id}"
+
 
 class Device(models.Model):
-    customer = models.ForeignKey(Customer, on_delete=models.CASCADE,related_name='devices')
-    ip_address = models.GenericIPAddressField(unique=True, blank=False, null=True, verbose_name="Ip address")
-    device_type = models.CharField(max_length=255, blank=False, null=True, verbose_name="Device Type")
-    serial_number = models.CharField(max_length=50, null=True, verbose_name="Serial Number")
-    qr_code = models.ImageField(upload_to='qr_codes/', verbose_name="QR Code")
+    STATUS_CHOICES = [
+        ("online", "Online"),
+        ("offline", "Offline"),
+    ]
+    owner = models.ForeignKey(
+        Customer,
+        related_name="owned_device",
+        on_delete=models.CASCADE,
+        blank=True,
+        null=True,
+    )
+    members = models.ManyToManyField(Customer, related_name="devices", blank=True)
+    pin = models.OneToOneField(Pin, related_name="pin", on_delete=models.CASCADE)
+    deviceName = models.CharField(max_length=200)
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES)
 
-    
     def __str__(self):
-        return f"{self.customer.name} - {self.ip_address}"
-
-
+        return self.deviceName

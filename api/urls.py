@@ -20,6 +20,7 @@ from api.notification.views import (
     UnreadNotificationCountView,
     MarkAllNotificationsAsReadView,
 )
+from api.device.views import DeviceListView, DeviceDetailView
 
 urlpatterns = [
     # ------------------------Auth--------------------------
@@ -76,4 +77,7 @@ urlpatterns = [
     ),
     # -----------------------User Profile API--------------------------
     path("profile/", ProfileUpdateAPIView.as_view(), name="profile-update"),
+    # -----------------------Device API--------------------------
+    path("devices/", DeviceListView.as_view(), name="devices-list"),
+    path("devices/<int:pk>/", DeviceDetailView.as_view(), name="device-detail"),
 ]

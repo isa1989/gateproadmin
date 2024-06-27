@@ -95,23 +95,23 @@ WSGI_APPLICATION = "gateproadmin.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 # if DEBUG:
-# DATABASES = {
-#     "default": {
-#         "ENGINE": "django.db.backends.sqlite3",
-#         "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
-#     }
-# }
-# # else:
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": os.getenv("DATABASE_NAME"),
-        "USER": os.getenv("DATABASE_USER"),
-        "PASSWORD": os.getenv("DATABASE_PASS"),
-        "HOST": os.getenv("HOST"),
-        "PORT": os.getenv("PORT"),
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
     }
 }
+# # else:
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.postgresql",
+#         "NAME": os.getenv("DATABASE_NAME"),
+#         "USER": os.getenv("DATABASE_USER"),
+#         "PASSWORD": os.getenv("DATABASE_PASS"),
+#         "HOST": os.getenv("HOST"),
+#         "PORT": os.getenv("PORT"),
+#     }
+# }
 
 
 # Password validation
@@ -136,7 +136,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
-# LANGUAGE_CODE = "az"
+LANGUAGE_CODE = "az"
 
 TIME_ZONE = "UTC"
 
@@ -179,3 +179,18 @@ MEDIA_ROOT = BASE_DIR / "media"
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+# EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+# EMAIL_HOST = "smtp.mail.ru"  # e.g., 'smtp.gmail.com'
+# EMAIL_PORT = 465  # Port for SMTP
+# EMAIL_USE_TLS = True  # True if using TLS, False otherwise
+# EMAIL_HOST_USER = "noreply@oilink.io"  # Your email address
+# EMAIL_HOST_PASSWORD = (
+#     "G9HHv7TBGeLr3f5tvifx"  # Your email password or application-specific password
+# )
+# DEFAULT_FROM_EMAIL = "noreply@oilink.io"  # Default sender email
+EMAIL_HOST = "smtp.mail.ru"
+EMAIL_PORT = 465
+EMAIL_HOST_USER = "noreply@oilink.io"  # mail ünvanı
+EMAIL_HOST_PASSWORD = "G9HHv7TBGeLr3f5tvifx"  # mailin şifrəsi
+EMAIL_USE_SSL = True

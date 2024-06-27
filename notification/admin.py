@@ -1,12 +1,11 @@
 # admin.py
 from django.contrib import admin
 from modeltranslation.admin import TranslationAdmin
-from .models import Notification
+from .models import Notification, NotifyEvent
 
 
-class NotificationAdmin(TranslationAdmin):
+class NotificationAdmin(admin.ModelAdmin):
     list_display = (
-        "title",
         "customer",
         "timestamp",
         "isRead",
@@ -15,11 +14,23 @@ class NotificationAdmin(TranslationAdmin):
         "timestamp",
         "isRead",
     )
-    search_fields = (
-        "title",
-        "message",
-        "customer__name",
-    )
+    search_fields = ("customer__name",)
 
 
 admin.site.register(Notification, NotificationAdmin)
+
+
+class NotifyEventAdmin(TranslationAdmin):
+    list_display = (
+        "title",
+        "message",
+        "timestamp",
+    )
+    list_filter = (
+        "title",
+        "timestamp",
+    )
+    search_fields = ("title",)
+
+
+admin.site.register(NotifyEvent, NotifyEventAdmin)
