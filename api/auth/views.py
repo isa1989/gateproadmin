@@ -18,7 +18,7 @@ from api.auth.auth import (
 from rest_framework.generics import RetrieveUpdateAPIView
 from rest_framework.exceptions import NotFound
 
-from api.permissions import IsCustomerAuthenticated, IsOwnerOrReadOnly
+from api.permissions import IsCustomerAuthenticated
 
 
 class CustomerPhoneRegistrationView(APIView):
@@ -151,7 +151,7 @@ class CustomerLogoutView(APIView):
 
 
 class CustomerDeleteView(APIView):
-    permission_classes = [IsCustomerAuthenticated, IsOwnerOrReadOnly]
+    permission_classes = [IsCustomerAuthenticated]
 
     def delete(self, request, *args, **kwargs):
         token = request.headers.get("Authorization")

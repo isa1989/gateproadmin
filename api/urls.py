@@ -20,7 +20,13 @@ from api.notification.views import (
     UnreadNotificationCountView,
     MarkAllNotificationsAsReadView,
 )
-from api.device.views import DeviceListView, DeviceDetailView
+from api.device.views import (
+    DeviceListView,
+    DeviceDetailView,
+    DevicePinDetailAPIView,
+    InviteMemberAPIView,
+    RemoveMemberFromDeviceAPIView,
+)
 
 urlpatterns = [
     # ------------------------Auth--------------------------
@@ -79,5 +85,20 @@ urlpatterns = [
     path("profile/", ProfileUpdateAPIView.as_view(), name="profile-update"),
     # -----------------------Device API--------------------------
     path("devices/", DeviceListView.as_view(), name="devices-list"),
-    path("devices/<int:pk>/", DeviceDetailView.as_view(), name="device-detail"),
+    path("devices/<int:pk>/", DeviceDetailView.as_view(), name="device-detail-unlink"),
+    path(
+        "devices/<int:device_id>/pins/<int:pin_id>/",
+        DevicePinDetailAPIView.as_view(),
+        name="device-pin-update",
+    ),
+    path(
+        "devices/<int:deviceId>/invite/",
+        InviteMemberAPIView.as_view(),
+        name="device-invite",
+    ),
+    path(
+        "devices/<int:deviceId>/members/<int:memberId>/",
+        RemoveMemberFromDeviceAPIView.as_view(),
+        name="remove-member-from-device",
+    ),
 ]

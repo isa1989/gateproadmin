@@ -2,12 +2,9 @@
 
 from rest_framework import serializers
 from device.models import Device, Pin
-
-# from api.auth.serializers import (
-#     CustomerSerializer,
-# )
 from api.auth.auth import get_customer_from_token
 from customer.models import Customer
+from django.core.validators import RegexValidator
 
 
 class PinSerializer(serializers.ModelSerializer):
@@ -28,14 +25,9 @@ class MemberSerializer(serializers.ModelSerializer):
 
 class DeviceSerializer(serializers.ModelSerializer):
     deviceId = serializers.IntegerField(source="id")
-    # owner = CustomerSerializer(
-    #     id
-    # )  # Assuming CustomerSerializer is defined and imported correctly
-    members = MemberSerializer(
-        many=True
-    )  # Assuming CustomerSerializer is defined and imported correctly
-    pin = PinSerializer()
+    pin = PinSerializer()  # Using PinSerializer to serialize the related Pin instance
     isOwner = serializers.SerializerMethodField()
+    members = MemberSerializer(many=True)
 
     class Meta:
         model = Device
@@ -45,11 +37,30 @@ class DeviceSerializer(serializers.ModelSerializer):
             "status",
             "isOwner",
             "members",
-            "pin",
+            "pin",  # Ensure 'pin' is included in the fields list
         )
 
     def get_isOwner(self, obj):
         request = self.context.get("request")
         token = request.headers.get("Authorization")
-        customer = get_customer_from_token(token)
+        customer = get_customer_from_token(
+            token
+        )  # Assuming this function retrieves Customer from token
         return customer == obj.owner if obj.owner else False
+
+
+class InviteMemberSerializer(serializers.Serializer):
+    phoneNumber = serializers.CharField(
+        validators=[
+            RegexValidator(
+                regex=r"^994\d{9}$",  # Regex pattern for phone numbers starting with 994 and total 12 digits
+                message="Phone number must start with 994 and have 12 digits",
+                code="invalid_phone_number",
+            )
+        ]
+    )
+
+    def validate_phoneNumber(self, value):
+        if not value.startswith("994"):
+            raise serializers.ValidationError("Phone number must start with 994.")
+        return value

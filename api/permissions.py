@@ -1,5 +1,6 @@
 from rest_framework.permissions import BasePermission
 from customer.models import CustomerToken
+from api.auth.auth import get_customer_from_token
 
 
 class IsCustomerAuthenticated(BasePermission):
@@ -24,11 +25,8 @@ class IsCustomerAuthenticated(BasePermission):
             return False
 
 
-class IsOwnerOrReadOnly(BasePermission):
-    """
-    Custom permission to allow only the owner of an object to delete it.
-    """
-
+class IsOwnerOfDevice(BasePermission):
     def has_object_permission(self, request, view, obj):
-        # Allow DELETE requests only if the authenticated user is the owner of the object
-        return obj == request.user
+        token = request.headers.get("Authorization")
+        customer = get_customer_from_token(token)
+        return obj.owner == customer
