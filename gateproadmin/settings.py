@@ -102,6 +102,7 @@ WSGI_APPLICATION = "gateproadmin.wsgi.application"
 #     }
 # }
 # # else:
+
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
