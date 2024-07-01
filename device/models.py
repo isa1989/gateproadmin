@@ -15,7 +15,8 @@ class Device(models.Model):
         null=True,
     )
     members = models.ManyToManyField(Customer, related_name="devices", blank=True)
-    deviceName = models.CharField(max_length=200)
+    deviceNumber = models.CharField(max_length=200, blank=True, null=True)
+    deviceName = models.CharField(max_length=200, blank=True, null=True)
     status = models.CharField(max_length=20, choices=STATUS_CHOICES)
 
     def __str__(self):
@@ -27,7 +28,7 @@ class Pin(models.Model):
         ("on", "On"),
         ("off", "Off"),
     ]
-    status = models.CharField(max_length=10, choices=STATUS_CHOICES)
+    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default="off")
     device = models.OneToOneField(Device, related_name="pin", on_delete=models.CASCADE)
 
     def __str__(self):

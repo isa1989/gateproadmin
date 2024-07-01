@@ -4,15 +4,18 @@ from rest_framework import generics, status
 from django.http import Http404, JsonResponse
 from rest_framework.response import Response
 from django.db.models import Q
-from device.models import Device
+from device.models import Device, Pin
 from api.auth.auth import get_customer_from_token
-from .serializers import DeviceSerializer, PinSerializer, InviteMemberSerializer
+from .serializers import (
+    DeviceSerializer,
+    PinSerializer,
+    InviteMemberSerializer,
+    MemberSerializer,
+)
 from api.permissions import IsCustomerAuthenticated, IsOwnerOfDevice
-from device.models import Pin
-from rest_framework.views import APIView
 
 
-class DeviceListView(generics.ListAPIView):
+class DeviceListView(generics.ListCreateAPIView):
     serializer_class = DeviceSerializer
     permission_classes = [IsCustomerAuthenticated]
     queryset = Device.objects.all()
@@ -24,6 +27,38 @@ class DeviceListView(generics.ListAPIView):
             Q(owner=customer) | Q(members=customer)
         ).distinct()
         return queryset
+
+    def post(self, request, *args, **kwargs):
+
+        token = self.request.headers.get("Authorization")
+        customer = get_customer_from_token(token)
+        device_number = self.request.data.get("deviceNumber")
+        try:
+            existing_device = Device.objects.get(deviceNumber=device_number)
+            return Response(
+                {"error": "Device with this deviceNumber already exists."},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+        except Device.DoesNotExist:
+
+            device_data = {
+                "deviceName": device_number,
+                "deviceNumber": device_number,
+                "owner": customer.id,
+                "status": "online",
+            }
+
+            serializer = self.get_serializer(data=device_data)
+            serializer.is_valid(raise_exception=True)
+            device_instance = serializer.save()
+            Pin.objects.create(device=device_instance)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+        except Exception as e:
+            return Response(
+                {"error": "An error occurred"},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            )
 
 
 class DeviceDetailView(generics.RetrieveDestroyAPIView):
@@ -139,3 +174,23 @@ class RemoveMemberFromDeviceAPIView(generics.DestroyAPIView):
                 {"message": "Member not found in device."},
                 status=status.HTTP_404_NOT_FOUND,
             )
+
+
+class DeviceMembersListView(generics.ListAPIView):
+    permission_classes = [IsCustomerAuthenticated]
+    queryset = Device.objects.all()
+    serializer_class = MemberSerializer
+
+    def get_queryset(self):
+        deviceId = self.kwargs["deviceId"]
+        try:
+            device = Device.objects.get(id=deviceId)
+            members = device.members.all()
+            return members
+        except Device.DoesNotExist:
+            return None  # Return an empty queryset if device does not exist
+
+    def list(self, request, *args, **kwargs):
+        queryset = self.get_queryset()
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)

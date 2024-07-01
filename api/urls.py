@@ -26,6 +26,7 @@ from api.device.views import (
     DevicePinDetailAPIView,
     InviteMemberAPIView,
     RemoveMemberFromDeviceAPIView,
+    DeviceMembersListView,
 )
 
 urlpatterns = [
@@ -100,5 +101,10 @@ urlpatterns = [
         "devices/<int:deviceId>/members/<int:memberId>/",
         RemoveMemberFromDeviceAPIView.as_view(),
         name="remove-member-from-device",
+    ),
+    path(
+        "devices/<int:deviceId>/members/",
+        DeviceMembersListView.as_view(),
+        name="device-member-list",
     ),
 ]

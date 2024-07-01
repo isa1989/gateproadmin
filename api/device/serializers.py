@@ -24,15 +24,17 @@ class MemberSerializer(serializers.ModelSerializer):
 
 
 class DeviceSerializer(serializers.ModelSerializer):
-    deviceId = serializers.IntegerField(source="id")
-    pin = PinSerializer()  # Using PinSerializer to serialize the related Pin instance
+    deviceId = serializers.IntegerField(source="id", read_only=True)
+    pin = PinSerializer(required=False)
     isOwner = serializers.SerializerMethodField()
-    members = MemberSerializer(many=True)
+    members = MemberSerializer(many=True, required=False)
 
     class Meta:
         model = Device
         fields = (
             "deviceId",
+            "owner",
+            "deviceNumber",
             "deviceName",
             "status",
             "isOwner",
