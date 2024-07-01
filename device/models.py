@@ -2,6 +2,18 @@ from django.db import models
 from customer.models import Customer
 
 
+class Pin(models.Model):
+    STATUS_CHOICES = [
+        ("on", "On"),
+        ("off", "Off"),
+    ]
+    status = models.CharField(max_length=10, choices=STATUS_CHOICES)
+    # device = models.OneToOneField(Device, related_name="pin", on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"Pin {self.id}"
+
+
 class Device(models.Model):
     STATUS_CHOICES = [
         ("online", "Online"),
@@ -17,18 +29,7 @@ class Device(models.Model):
     members = models.ManyToManyField(Customer, related_name="devices", blank=True)
     deviceName = models.CharField(max_length=200)
     status = models.CharField(max_length=20, choices=STATUS_CHOICES)
+    pin = models.OneToOneField(Pin, related_name="device", on_delete=models.CASCADE)
 
     def __str__(self):
         return self.deviceName
-
-
-class Pin(models.Model):
-    STATUS_CHOICES = [
-        ("on", "On"),
-        ("off", "Off"),
-    ]
-    status = models.CharField(max_length=10, choices=STATUS_CHOICES)
-    device = models.OneToOneField(Device, related_name="pin", on_delete=models.CASCADE)
-
-    def __str__(self):
-        return f"Pin {self.id}"

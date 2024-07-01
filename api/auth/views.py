@@ -185,15 +185,19 @@ class CustomerDeleteView(APIView):
         )
 
 
-def transform_request_data(request_data):
+def transform_request_data(customer, request_data):
     transformed_data = {
-        "firebase_token": request_data.get("firebaseToken"),
+        "firebase_token": request_data.get("firebaseToken", customer.firebase_token),
         "language": request_data.get("language"),
-        "email": request_data.get("notificationPreferences", {}).get("email"),
-        "sms": request_data.get("notificationPreferences", {}).get("sms"),
-        "push": request_data.get("notificationPreferences", {}).get("push"),
-        "name": request_data.get("name"),
-        "surname": request_data.get("surname"),
+        "email": request_data.get("notificationPreferences", {}).get(
+            "email", customer.email
+        ),
+        "sms": request_data.get("notificationPreferences", {}).get("sms", customer.sms),
+        "push": request_data.get("notificationPreferences", {}).get(
+            "push", customer.push
+        ),
+        "name": request_data.get("name", customer.name),
+        "surname": request_data.get("surname", customer.surname),
     }
     return transformed_data
 
@@ -221,8 +225,7 @@ class ProfileUpdateAPIView(APIView):
     def patch(self, request, *args, **kwargs):
         token = request.headers.get("Authorization")
         customer = get_customer_from_token(token)
-        transformed_data = transform_request_data(request.data)
-
+        transformed_data = transform_request_data(customer, request.data)
         serializer = CustomerSerializer(customer, data=transformed_data, partial=True)
         if serializer.is_valid():
             serializer.save()

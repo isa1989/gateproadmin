@@ -65,3 +65,9 @@ class CustomerSerializer(serializers.ModelSerializer):
             "sms",
             "push",
         ]
+
+        extra_kwargs = {
+            "email": {"required": False},
+            "sms": {"required": False},
+            "push": {"required": False},
+        }

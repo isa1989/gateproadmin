@@ -53,6 +53,7 @@ class Customer(AbstractBaseUser, PermissionsMixin):
     email = models.BooleanField(default=True)
     sms = models.BooleanField(default=True)
     push = models.BooleanField(default=True)
+    # preferred_language = models.CharField(max_length=3, blank=True, null=True)
     groups = models.ManyToManyField(
         Group, related_name="customers", blank=True, verbose_name="Groups"
     )
