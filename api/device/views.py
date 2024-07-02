@@ -153,6 +153,7 @@ class InviteMemberAPIView(generics.CreateAPIView):
 class RemoveMemberFromDeviceAPIView(generics.RetrieveDestroyAPIView):
     permission_classes = [IsCustomerAuthenticated, IsOwnerOfDevice]
     queryset = Device.objects.all()
+    lookup_url_kwarg = "deviceId"
 
     def delete(self, request, *args, **kwargs):
 
@@ -216,7 +217,7 @@ class CarPlateCreateAPIView(generics.ListCreateAPIView):
         return customer.car_plate.all()
 
 
-class CarPlateDetailAPIView(generics.DestroyAPIView):
+class CarPlateDetailAPIView(generics.RetrieveDestroyAPIView):
     permission_classes = [IsCustomerAuthenticated]
     queryset = CarPlate.objects.all()
     serializer_class = CarPlateSerializer
