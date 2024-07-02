@@ -1,7 +1,7 @@
 # serializers.py
 
 from rest_framework import serializers
-from device.models import Device, Pin
+from device.models import Device, Pin, CarPlate
 from api.auth.auth import get_customer_from_token
 from customer.models import Customer
 from django.core.validators import RegexValidator
@@ -14,7 +14,7 @@ class PinSerializer(serializers.ModelSerializer):
 
 
 class MemberSerializer(serializers.ModelSerializer):
-    memberId = serializers.IntegerField(source="id")
+    memberId = serializers.IntegerField(source="id", read_only=True)
     phoneNumber = serializers.CharField(source="phone_number")
     name = serializers.CharField()
 
@@ -66,3 +66,11 @@ class InviteMemberSerializer(serializers.Serializer):
         if not value.startswith("994"):
             raise serializers.ValidationError("Phone number must start with 994.")
         return value
+
+
+class CarPlateSerializer(serializers.ModelSerializer):
+    carPlateId = serializers.IntegerField(source="id", read_only=True)
+
+    class Meta:
+        model = CarPlate
+        fields = ["carPlateId", "carPlateNumber"]

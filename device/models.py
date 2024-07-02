@@ -33,3 +33,10 @@ class Pin(models.Model):
 
     def __str__(self):
         return f"Pin {self.id}"
+
+
+class CarPlate(models.Model):
+    carPlateNumber = models.CharField(max_length=20, unique=True)
+
+    def __str__(self):
+        return self.carPlateNumber

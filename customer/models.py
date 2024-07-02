@@ -1,11 +1,13 @@
+import random
 from django.contrib.auth.models import Group, Permission
 from django.contrib.auth.models import (
     AbstractBaseUser,
     BaseUserManager,
     PermissionsMixin,
 )
+
+# from device.models import CarPlate
 from django.db import models
-import random
 
 
 class CustomUserManager(BaseUserManager):
@@ -54,6 +56,9 @@ class Customer(AbstractBaseUser, PermissionsMixin):
     sms = models.BooleanField(default=True)
     push = models.BooleanField(default=True)
     # preferred_language = models.CharField(max_length=3, blank=True, null=True)
+    car_plate = models.ManyToManyField(
+        "device.CarPlate", related_name="customer_cars", blank=True
+    )
     groups = models.ManyToManyField(
         Group, related_name="customers", blank=True, verbose_name="Groups"
     )

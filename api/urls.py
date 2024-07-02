@@ -27,6 +27,8 @@ from api.device.views import (
     InviteMemberAPIView,
     RemoveMemberFromDeviceAPIView,
     DeviceMembersListView,
+    CarPlateCreateAPIView,
+    CarPlateDetailAPIView,
 )
 
 urlpatterns = [
@@ -106,5 +108,10 @@ urlpatterns = [
         "devices/<int:deviceId>/members/",
         DeviceMembersListView.as_view(),
         name="device-member-list",
+    ),
+    # -----------------------Car Plate API--------------------------
+    path("car-plates/", CarPlateCreateAPIView.as_view(), name="car_plate_create"),
+    path(
+        "car-plates/<int:pk>/", CarPlateDetailAPIView.as_view(), name="car-plate-detail"
     ),
 ]

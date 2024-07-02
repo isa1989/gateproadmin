@@ -1,7 +1,8 @@
 from django.contrib import admin
-from .models import Device, Pin
+from .models import Device, Pin, CarPlate
 
 # Register your models here.
 
 admin.site.register(Device)
 admin.site.register(Pin)
+admin.site.register(CarPlate)
