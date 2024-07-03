@@ -11,6 +11,7 @@ urlpatterns = [
     path("device/", include("device.urls")),
     path("api/", include("api.urls")),  # API URL
     path("api-auth/", include("rest_framework.urls")),  # Django Rest Framework auth URL
+    path("settings/", include("settings.urls")),
 ]
 
 # Serving media files during development

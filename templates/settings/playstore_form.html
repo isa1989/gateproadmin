@@ -1,0 +1,83 @@
+<!-- settings/templates/settings/playstore_form.html -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Play Store Account Deletion Request</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        /* Your CSS styles */
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        .form-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .form-container label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        .form-container input[type=text],
+        .form-container input[type=email],
+        .form-container input[type=url],
+        .form-container select,
+        .form-container textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+        .form-container .reason-select {
+            margin-bottom: 10px;
+        }
+        .form-container button[type=submit] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .form-container button[type=submit]:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+<div class="form-container">
+  <h2>Play Store Account Deletion Request</h2>
+  <form method="post">
+    {% csrf_token %}
+    <label for="id_number">Number:</label>
+    {{ form.number }}
+
+    <label for="id_email">Email:</label>
+    {{ form.email }}
+
+    <label for="id_reason">Possible Reasons for Account Deletion:</label><br>
+    {{ form.reason }}
+
+    {% if form.reason.value == 'other' %}
+        <label for="id_other_reason">Please Specify:</label>
+        {{ form.other_reason }}
+    {% endif %}
+
+    <button type="submit">Submit</button>
+  </form>
+</div>
+
+</body>
+</html>
