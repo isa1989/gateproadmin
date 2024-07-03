@@ -64,6 +64,7 @@ class CustomerSerializer(serializers.ModelSerializer):
             "email",
             "sms",
             "push",
+            "is_active",
         ]
 
         extra_kwargs = {

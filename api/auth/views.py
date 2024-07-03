@@ -46,15 +46,26 @@ class CustomerPhoneRegistrationView(APIView):
                 {"detail": error_message},
                 status=status.HTTP_400_BAD_REQUEST,
             )
-        customer_data = {"name": name, "surname": surname, "phone_number": phone_number}
-        serializer = CustomerSerializer(data=customer_data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(
-                {"data": serializer.data, "message": "User profile updated"},
-                status=status.HTTP_200_OK,
-            )
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        customer_data = {
+            "name": name,
+            "surname": surname,
+            "phone_number": phone_number,
+            "is_active": True,
+        }
+        try:
+            # Try to retrieve the customer based on phone number
+            customer = Customer.objects.get(phone_number=phone_number, is_active=False)
+            serializer = CustomerSerializer(customer, data=customer_data, partial=True)
+
+        except Customer.DoesNotExist:
+            serializer = CustomerSerializer(data=customer_data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+
+        return Response(
+            {"data": serializer.data, "message": "User profile updated"},
+            status=status.HTTP_200_OK,
+        )
 
 
 class CustomerPhoneLoginView(APIView):
@@ -108,7 +119,9 @@ class CustomerPhoneVerifyOtpView(APIView):
             )
 
         primary_token = generate_or_update_jwt_token(phone_number)
-        is_registered = Customer.objects.filter(phone_number=phone_number).exists()
+        is_registered = Customer.objects.filter(
+            phone_number=phone_number, is_active=True
+        ).exists()
         if is_registered:
             message = "User verified and authenticated"
         else:
@@ -155,32 +168,17 @@ class CustomerDeleteView(APIView):
 
     def delete(self, request, *args, **kwargs):
         token = request.headers.get("Authorization")
-        customer_id = request.data.get("customer_id")
+        customer = get_customer_from_token(token)
 
         if not token:
-
             return Response(
                 {"error": "Token is required"}, status=status.HTTP_401_UNAUTHORIZED
             )
+        customer.is_active = False
+        customer.save()
 
-        customer_token = get_object_or_404(CustomerToken, token=token)
-        customer = customer_token.customer
-        if not customer:
-            return Response(
-                {"error": "Customer does not exist"}, status=status.HTTP_404_NOT_FOUND
-            )
-        if customer_id and str(customer.id) != customer_id:
-            return Response(
-                {"error": "Invalid customer ID"}, status=status.HTTP_400_BAD_REQUEST
-            )
-        if customer != Customer.objects.get(id=customer_id):
-            return Response(
-                {"error": "You are not authorized to delete this profile"},
-                status=status.HTTP_403_FORBIDDEN,
-            )
-        customer.delete()
         return Response(
-            {"message": "Customer profile deleted successfully"},
+            {"message": f"Customer  has been deleted."},
             status=status.HTTP_204_NO_CONTENT,
         )
 

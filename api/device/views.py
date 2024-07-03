@@ -169,10 +169,10 @@ class RemoveMemberFromDeviceAPIView(generics.RetrieveDestroyAPIView):
             )
 
         # Check if the memberId exists in members of the device
-
         if device.members.filter(id=kwargs["memberId"]).exists():
             device.members.remove(kwargs["memberId"])
             return Response({"message": "Member removed successfully."})
+
         else:
             return JsonResponse(
                 {"message": "Member not found in device."},

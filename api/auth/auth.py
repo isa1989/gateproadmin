@@ -69,6 +69,8 @@ def get_customer_from_token(token):
 
         # Retrieve the customer based on the phone number
         customer = Customer.objects.get(phone_number=phone_number)
+        if not customer.is_active:
+            raise AuthenticationFailed("User deleted from the system")
 
         return customer
     except jwt.ExpiredSignatureError:
