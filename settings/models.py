@@ -1,7 +1,6 @@
 from django.db import models
 from solo.models import SingletonModel
-
-# Create your models here.
+from ckeditor.fields import RichTextField
 
 
 class Settings(SingletonModel):
@@ -27,3 +26,17 @@ class PlayStoreFormSubmission(models.Model):
 
     def __str__(self):
         return f"Form Submission {self.id}"
+
+
+class PrivacyPolicy(models.Model):
+    content = RichTextField()
+
+    def __str__(self):
+        return "Privacy Policy"
+
+
+class TermsConditions(models.Model):
+    content = RichTextField()
+
+    def __str__(self):
+        return "Terms & Conditions"

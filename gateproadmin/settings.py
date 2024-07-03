@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     "notification",
     "solo",
     "settings",
+    "ckeditor",
 ]
 
 MIDDLEWARE = [
