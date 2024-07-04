@@ -7,9 +7,9 @@ from notification.utils import calculate_signature
 from settings.models import Settings
 
 
-def send_sms():
-    smscenter_pbk = Settings.get_solo().sms_public_key
-    smscenter_pvk = Settings.get_solo().sms_private_key
+def send_sms(phone_number, otp_code, is_bulk=False):
+    smscenter_pbk = Settings.get_solo().smscenter_pbk
+    smscenter_pvk = Settings.get_solo().smscenter_pvk
     smscenter_url = Settings.get_solo().smscenter_url
     username = Settings.get_solo().smscenter_username
     oper_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
@@ -21,10 +21,10 @@ def send_sms():
         "Signature": signature,
     }
     payload = {
-        "msisdn": "994709021220",
-        "message": "Your SMS message content here",
+        "msisdn": phone_number,
+        "message": f"OTP: {otp_code}",
         "oper_time": oper_time,
-        "is_bulk": False,
+        "is_bulk": is_bulk,
     }
     try:
         response = requests.post(smscenter_url, headers=headers, json=payload)

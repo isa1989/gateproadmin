@@ -17,7 +17,7 @@ from api.auth.auth import (
 )
 from rest_framework.generics import RetrieveUpdateAPIView
 from rest_framework.exceptions import NotFound
-
+from notification.notification import send_sms
 from api.permissions import IsCustomerAuthenticated
 
 
@@ -83,12 +83,14 @@ class CustomerPhoneLoginView(APIView):
             otp_serializer = OTPSerializer(data=request.data)
 
         if otp_serializer.is_valid():
-            otp_serializer.save()
+            otp = otp_serializer.save()
+            send_sms(phone_number, otp.otp_code)
             temporary_token = generate_or_update_jwt_token(phone_number)
             response_data = {
                 "data": {"token": temporary_token},
                 "message": "Temporary token generated",
             }
+
             return Response(response_data, status=status.HTTP_200_OK)
         return Response(otp_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 

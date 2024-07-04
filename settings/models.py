@@ -5,6 +5,16 @@ from ckeditor.fields import RichTextField
 
 class Settings(SingletonModel):
     banner_image = models.ImageField(upload_to="banner-img")
+    smscenter_pbk = models.CharField(
+        max_length=500, blank=True, verbose_name="Public key"
+    )
+    smscenter_pvk = models.CharField(
+        max_length=500, blank=True, verbose_name="Private key"
+    )
+    smscenter_url = models.CharField(max_length=500, blank=False, verbose_name="SmSURL")
+    smscenter_username = models.CharField(
+        max_length=500, blank=False, verbose_name="Username"
+    )
 
 
 class PlayStoreFormSubmission(models.Model):

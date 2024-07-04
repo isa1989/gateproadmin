@@ -102,8 +102,6 @@ class OTP(models.Model):
         super().save(*args, **kwargs)
 
     def _generate_otp(self):
-        if self.phone_number == "994558403938":
-            return "1234"
         while True:
             otp_code = random.randint(1000, 9999)
             if not OTP.objects.filter(otp_code=otp_code).exists():
