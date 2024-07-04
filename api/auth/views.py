@@ -72,6 +72,7 @@ class CustomerPhoneLoginView(APIView):
     permission_classes = [AllowAny]
 
     def post(self, request):
+        print(request, "postttttttttttttttttttttttttttttttttttttttttttt")
         phone_number = request.data.get("phone_number")
         if not phone_number:
             raise ValidationError("Phone number is missing.")
@@ -84,7 +85,7 @@ class CustomerPhoneLoginView(APIView):
 
         if otp_serializer.is_valid():
             otp = otp_serializer.save()
-            sms = send_sms(phone_number, otp.otp_code)
+            # sms = send_sms(phone_number, otp.otp_code)
             temporary_token = generate_or_update_jwt_token(phone_number)
             response_data = {
                 "data": {"token": temporary_token},
