@@ -84,7 +84,7 @@ class CustomerPhoneLoginView(APIView):
 
         if otp_serializer.is_valid():
             otp = otp_serializer.save()
-            send_sms(phone_number, otp.otp_code)
+            sms = send_sms(phone_number, otp.otp_code)
             temporary_token = generate_or_update_jwt_token(phone_number)
             response_data = {
                 "data": {"token": temporary_token},
