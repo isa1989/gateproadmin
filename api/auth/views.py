@@ -85,18 +85,6 @@ class CustomerPhoneLoginView(APIView):
         if otp_serializer.is_valid():
             otp = otp_serializer.save()
             temporary_token = generate_or_update_jwt_token(phone_number)
-            import requests
-
-            try:
-                send_sms(otp.phone_number, otp.otp_code)
-            except requests.exceptions.RequestException as e:
-                # Handle SMS sending error
-                error_message = f"Error sending SMS: {str(e)}"
-                # Log the error or take appropriate action
-                return Response(
-                    {"error": error_message},
-                    status=status.HTTP_500_INTERNAL_SERVER_ERROR,
-                )
             response_data = {
                 "data": {"token": temporary_token},
                 "message": "Temporary token generated",
