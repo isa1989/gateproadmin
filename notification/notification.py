@@ -26,6 +26,7 @@ def send_sms(phone_number, otp_code, is_bulk=False):
         "oper_time": oper_time,
         "is_bulk": is_bulk,
     }
+    breakpoint()
     try:
         response = requests.post(smscenter_url, headers=headers, json=payload)
         if response.status_code == 200:
