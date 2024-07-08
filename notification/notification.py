@@ -26,16 +26,7 @@ def send_sms(phone_number, otp_code, is_bulk=False):
         "oper_time": oper_time,
         "is_bulk": is_bulk,
     }
-    breakpoint()
-    try:
-        response = requests.post(smscenter_url, headers=headers, json=payload)
-        if response.status_code == 200:
-            return True
-        else:
-            return False
-    except requests.exceptions.RequestException as e:
-        print(f"Error sending SMS: {e}")
-        return False
+    response = requests.post(smscenter_url, headers=headers, json=payload)
 
 
 def send_custom_mail(
