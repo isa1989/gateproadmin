@@ -73,4 +73,4 @@ class CarPlateSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = CarPlate
-        fields = ["carPlateId", "carPlateNumber"]
+        fields = ["carPlateId", "carPlateNumber", "carName"]

@@ -37,6 +37,7 @@ class Pin(models.Model):
 
 class CarPlate(models.Model):
     carPlateNumber = models.CharField(max_length=20, unique=True)
+    carName = models.CharField(max_length=20)
 
     def __str__(self):
         return self.carPlateNumber
