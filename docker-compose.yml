@@ -37,6 +37,7 @@ services:
 
 volumes:
   postgres_data:
+  media-data:
 
 networks:
   gate-network:
