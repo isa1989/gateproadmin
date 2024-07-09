@@ -28,6 +28,7 @@ class DeviceSerializer(serializers.ModelSerializer):
     pin = PinSerializer(required=False)
     isOwner = serializers.SerializerMethodField()
     members = MemberSerializer(many=True, required=False)
+    status = serializers.CharField(required=False)
 
     class Meta:
         model = Device

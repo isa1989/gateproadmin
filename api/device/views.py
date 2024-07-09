@@ -62,7 +62,7 @@ class DeviceListView(generics.ListCreateAPIView):
             )
 
 
-class DeviceDetailView(generics.RetrieveDestroyAPIView):
+class DeviceDetailView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = DeviceSerializer
     permission_classes = [IsCustomerAuthenticated]
     queryset = Device.objects.all()
@@ -80,6 +80,15 @@ class DeviceDetailView(generics.RetrieveDestroyAPIView):
         if self.request.method == "DELETE":
             self.permission_classes = [IsCustomerAuthenticated, IsOwnerOfDevice]
         return super(DeviceDetailView, self).get_permissions()
+
+    def patch(self, request, *args, **kwargs):
+        partial = kwargs.pop("partial", False)
+        instance = self.get_object()
+        serializer = self.get_serializer(instance, data=request.data, partial=partial)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+
+        return Response({"message": "Device name updated successfully."})
 
     def delete(self, request, *args, **kwargs):
         try:
