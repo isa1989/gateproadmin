@@ -1,5 +1,4 @@
-# views.py
-
+import re
 from rest_framework import generics, status
 from django.http import Http404, JsonResponse
 from rest_framework.response import Response
@@ -14,6 +13,45 @@ from .serializers import (
     CarPlateSerializer,
 )
 from api.permissions import IsCustomerAuthenticated, IsOwnerOfDevice
+import paho.mqtt.client as mqtt
+
+
+def mqtt_listener():
+    processed_message = False
+    result = None
+
+    def on_connect(client, userdata, flags, rc):
+        # Commenting out the print statement
+        # print("Connected with result code " + str(rc))
+        client.subscribe("383000001/sensor/State")
+
+    def on_message(client, userdata, msg):
+        nonlocal processed_message
+        nonlocal result
+        if not processed_message and msg.topic == "383000001/sensor/State":
+            payload = msg.payload.decode()
+            if payload in ["0", "1"]:
+                # Commenting out the print statement
+                # print(f"Received message '{payload}' on topic '383000001/sensor/State'")
+                processed_message = (
+                    True  # Set flag to True after processing the message
+                )
+                if payload == "0" or payload == "1":
+                    result = True
+                else:
+                    result = False
+                client.disconnect()  # Disconnect MQTT client after processing the message
+
+    broker_address = "46.32.168.23"
+    port = 1883
+    client = mqtt.Client()
+    client.on_connect = on_connect
+    client.on_message = on_message
+    client.username_pw_set("iot", "Passw0rdIOT")
+    client.connect(broker_address, port, 60)
+    client.loop_forever()
+
+    return result
 
 
 class DeviceListView(generics.ListCreateAPIView):
