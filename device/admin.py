@@ -1,8 +1,13 @@
 from django.contrib import admin
-from .models import Device, Pin, CarPlate
+from device.models import Device, Pin, CarPlate
 
-# Register your models here.
 
-admin.site.register(Device)
+@admin.register(Device)
+class DeviceAdmin(admin.ModelAdmin):
+    list_display = ("deviceNumber", "deviceName", "status", "device_type")
+    list_filter = ("status", "device_type")
+    search_fields = ("deviceNumber", "deviceName")
+
+
 admin.site.register(Pin)
 admin.site.register(CarPlate)

@@ -45,6 +45,8 @@ class DeviceSerializer(serializers.ModelSerializer):
 
     def get_isOwner(self, obj):
         request = self.context.get("request")
+        if request is None:
+            return False
         token = request.headers.get("Authorization")
         customer = get_customer_from_token(
             token

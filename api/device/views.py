@@ -64,40 +64,41 @@ class DeviceListView(generics.ListCreateAPIView):
         return queryset
 
     def post(self, request, *args, **kwargs):
-
         token = self.request.headers.get("Authorization")
         customer = get_customer_from_token(token)
         device_number = self.request.data.get("deviceNumber")
         try:
-            existing_device = Device.objects.get(deviceNumber=device_number)
-            return Response(
-                {"error": "Device with this deviceNumber already exists."},
-                status=status.HTTP_400_BAD_REQUEST,
-            )
-        except Device.DoesNotExist:
+            device = Device.objects.get(deviceNumber=device_number)
+            if device.owner is not None:
+                return Response(
+                    {"error": "Device with this deviceNumber already has an owner."},
+                    status=status.HTTP_400_BAD_REQUEST,
+                )
 
-            device_data = {
-                "deviceName": device_number,
-                "deviceNumber": device_number,
-                "owner": customer.id,
-                "status": "online",
-            }
-
-            serializer = self.get_serializer(data=device_data)
-            serializer.is_valid(raise_exception=True)
             mqtt_response = mqtt_listener(device_number)
-            if mqtt_response:
-                device_instance = serializer.save()
-            else:
+            if not mqtt_response:
                 return Response(
                     {"error": "Device is offline"}, status=status.HTTP_400_BAD_REQUEST
                 )
-            Pin.objects.create(device=device_instance)
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+            device_data = {
+                "owner": customer.id,
+                "status": "online",
+            }
+            serializer = DeviceSerializer(device, data=device_data, partial=True)
+            serializer.is_valid(raise_exception=True)
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+
+        except Device.DoesNotExist:
+            return Response(
+                {"error": "Device with this deviceNumber does not exist."},
+                status=status.HTTP_404_NOT_FOUND,
+            )
 
         except Exception as e:
             return Response(
-                {"error": "An error occurred"},
+                {"error": f"An error occurred: {str(e)}"},
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR,
             )
 
