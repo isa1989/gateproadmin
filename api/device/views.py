@@ -14,33 +14,26 @@ from .serializers import (
 )
 from api.permissions import IsCustomerAuthenticated, IsOwnerOfDevice
 import paho.mqtt.client as mqtt
+import threading
 
 
-def mqtt_listener():
+def mqtt_listener(deviceNumber):
     processed_message = False
     result = None
 
     def on_connect(client, userdata, flags, rc):
-        # Commenting out the print statement
-        # print("Connected with result code " + str(rc))
-        client.subscribe("383000001/sensor/State")
+        client.subscribe(f"{deviceNumber}/sensor/State")
 
     def on_message(client, userdata, msg):
         nonlocal processed_message
         nonlocal result
-        if not processed_message and msg.topic == "383000001/sensor/State":
+        if not processed_message and msg.topic == f"{deviceNumber}/sensor/State":
             payload = msg.payload.decode()
-            if payload in ["0", "1"]:
-                # Commenting out the print statement
-                # print(f"Received message '{payload}' on topic '383000001/sensor/State'")
-                processed_message = (
-                    True  # Set flag to True after processing the message
-                )
-                if payload == "0" or payload == "1":
-                    result = True
-                else:
-                    result = False
-                client.disconnect()  # Disconnect MQTT client after processing the message
+            if payload == "0" or payload == "1":
+                result = True
+            else:
+                result = False
+            client.disconnect()
 
     broker_address = "46.32.168.23"
     port = 1883
@@ -49,7 +42,10 @@ def mqtt_listener():
     client.on_message = on_message
     client.username_pw_set("iot", "Passw0rdIOT")
     client.connect(broker_address, port, 60)
+    timer = threading.Timer(3, lambda: client.disconnect())
+    timer.start()
     client.loop_forever()
+    timer.cancel()
 
     return result
 
@@ -89,7 +85,13 @@ class DeviceListView(generics.ListCreateAPIView):
 
             serializer = self.get_serializer(data=device_data)
             serializer.is_valid(raise_exception=True)
-            device_instance = serializer.save()
+            mqtt_response = mqtt_listener(device_number)
+            if mqtt_response:
+                device_instance = serializer.save()
+            else:
+                return Response(
+                    {"error": "Device is offline"}, status=status.HTTP_400_BAD_REQUEST
+                )
             Pin.objects.create(device=device_instance)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 
