@@ -1,0 +1,43 @@
+services:
+  
+  gateprodb:
+    restart: always
+    image: postgres:13
+    ports:
+      - "5439:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: gate_db_pro
+      POSTGRES_USER: gate_user_pro
+      POSTGRES_PASSWORD: P2d6WCLvVtc3NQaVNNb
+      PGPORT: 5439
+    env_file:
+      - .env
+    networks:
+      - gatepro-network
+      
+  gateproweb:
+    restart: always
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - media-data:/gateproadmin/media
+      
+    ports:
+      - "8008:8008"
+    depends_on:
+      - gateprodb
+    environment:
+      - DATABASE_URL=postgres://gate_user_pro:P2d6WCLvVtc3NQaVNNb@gatedb:5432/gate_db_pro
+    networks:
+      - gatepro-network
+      
+
+volumes:
+  postgres_data:
+  media-data:
+
+networks:
+  gate-network:
