@@ -26,7 +26,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-i&_0t-+z4ie3u7l(2q3gb2h^x#=frouvd=i_o03sj8kv&n@kj$"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ["*"]
 
@@ -91,13 +91,10 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "gateproadmin.wsgi.application"
 
-print(DEBUG, "ddddddddddddddddddddddddddddddd")
-print(os.getenv("DATABASE_NAME"))
-print(os.getenv("HOST"), "hostsssssssssssssssss")
+
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 if DEBUG:
-    print("sqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq")
     DATABASES = {
         "default": {
             "ENGINE": "django.db.backends.sqlite3",
@@ -105,7 +102,6 @@ if DEBUG:
         }
     }
 else:
-    print("postttttttttttttttttttttttttttttttttttt")
     DATABASES = {
         "default": {
             "ENGINE": "django.db.backends.postgresql",
