@@ -40,4 +40,4 @@ volumes:
   media-data:
 
 networks:
-  gate-network:
+  gatepro-network:
