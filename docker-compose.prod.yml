@@ -1,5 +1,4 @@
 services:
-  
   gateprodb:
     restart: always
     image: postgres:13
