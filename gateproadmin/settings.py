@@ -91,10 +91,13 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "gateproadmin.wsgi.application"
 
-breakpoint()
+print(DEBUG, "ddddddddddddddddddddddddddddddd")
+print(os.getenv("DATABASE_NAME"))
+print(os.getenv("HOST"), "hostsssssssssssssssss")
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 if DEBUG:
+    print("sqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq")
     DATABASES = {
         "default": {
             "ENGINE": "django.db.backends.sqlite3",
@@ -102,6 +105,7 @@ if DEBUG:
         }
     }
 else:
+    print("postttttttttttttttttttttttttttttttttttt")
     DATABASES = {
         "default": {
             "ENGINE": "django.db.backends.postgresql",
