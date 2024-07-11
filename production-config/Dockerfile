@@ -6,7 +6,7 @@ ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
 # Set the working directory in the container
-WORKDIR /gateproadmin
+WORKDIR /gateproadmin_pro
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
@@ -22,12 +22,12 @@ RUN pip install --no-cache-dir -r requirements.txt \
     
 
 # Copy the current directory contents into the container at /app
-COPY . /gateproadmin/
+COPY . /gateproadmin_pro/
 
 # Run collectstatic
 RUN python manage.py collectstatic --no-input
 # Expose port 8000 to the outside world
-EXPOSE 8009
+EXPOSE 8008
 
 # Run the Django app
 CMD ["gunicorn", "--bind", "0.0.0.0:8008", "gateproadmin.wsgi:application"]
