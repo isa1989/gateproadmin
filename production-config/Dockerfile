@@ -6,7 +6,7 @@ ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
 # Set the working directory in the container
-WORKDIR /gateproadmin_pro
+WORKDIR /gateproadmin_prod
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
@@ -22,7 +22,7 @@ RUN pip install --no-cache-dir -r requirements.txt \
     
 
 # Copy the current directory contents into the container at /app
-COPY . /gateproadmin_pro/
+COPY . /gateproadmin_prod/
 
 # Run collectstatic
 RUN python manage.py collectstatic --no-input
