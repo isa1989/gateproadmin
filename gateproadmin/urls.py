@@ -8,7 +8,7 @@ urlpatterns = [
     path("gatepro/admin/", admin.site.urls),  # Admin URL
     path("", include("home.urls")),  # Main application URL
     path("customer/", include("customer.urls")),
-    path("device/", include("device.urls")),
+    # path("device/", include("device.urls")),
     path("api/", include("api.urls")),  # API URL
     path("api-auth/", include("rest_framework.urls")),  # Django Rest Framework auth URL
     path("settings/", include("settings.urls")),

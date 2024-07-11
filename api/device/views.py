@@ -15,6 +15,7 @@ from .serializers import (
 from api.permissions import IsCustomerAuthenticated, IsOwnerOfDevice
 import paho.mqtt.client as mqtt
 import threading
+from rest_framework.views import APIView
 
 
 def mqtt_listener(deviceNumber):
@@ -50,25 +51,26 @@ def mqtt_listener(deviceNumber):
     return result
 
 
-class DeviceListView(generics.ListCreateAPIView):
+class DeviceListView(APIView):
     serializer_class = DeviceSerializer
     permission_classes = [IsCustomerAuthenticated]
     queryset = Device.objects.all()
 
-    def get_queryset(self):
+    def get(self, request, *args, **kwargs):
         token = self.request.headers.get("Authorization")
         customer = get_customer_from_token(token)
         queryset = Device.objects.filter(
             Q(owner=customer) | Q(members=customer)
         ).distinct()
-        return queryset
+        serializer = DeviceSerializer(queryset, many=True)
+        return Response(serializer.data)
 
     def post(self, request, *args, **kwargs):
         token = self.request.headers.get("Authorization")
         customer = get_customer_from_token(token)
         device_number = self.request.data.get("deviceNumber")
-        try:
-            device = Device.objects.get(deviceNumber=device_number)
+        device = Device.objects.filter(deviceNumber=device_number).last()
+        if device:
             if device.owner is not None:
                 return Response(
                     {"error": "Device with this deviceNumber already has an owner."},
@@ -76,6 +78,7 @@ class DeviceListView(generics.ListCreateAPIView):
                 )
 
             mqtt_response = mqtt_listener(device_number)
+
             if not mqtt_response:
                 return Response(
                     {"error": "Device is offline"}, status=status.HTTP_400_BAD_REQUEST
@@ -85,21 +88,15 @@ class DeviceListView(generics.ListCreateAPIView):
                 "owner": customer.id,
                 "status": "online",
             }
-            serializer = DeviceSerializer(device, data=device_data, partial=True)
+
+            serializer = DeviceSerializer(device, data=device_data)
             serializer.is_valid(raise_exception=True)
             serializer.save()
             return Response(serializer.data, status=status.HTTP_200_OK)
 
-        except Device.DoesNotExist:
+        else:
             return Response(
                 {"error": "Device with this deviceNumber does not exist."},
-                status=status.HTTP_404_NOT_FOUND,
-            )
-
-        except Exception as e:
-            return Response(
-                {"error": f"An error occurred: {str(e)}"},
-                status=status.HTTP_500_INTERNAL_SERVER_ERROR,
             )
 
 
