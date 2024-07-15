@@ -50,3 +50,16 @@ class TermsConditions(models.Model):
 
     def __str__(self):
         return "Terms & Conditions"
+
+
+class ContactUs(models.Model):
+    telegram = models.URLField(blank=True, null=True)
+    website = models.URLField(blank=True, null=True)
+    instagram = models.URLField(blank=True, null=True)
+    facebook = models.URLField(blank=True, null=True)
+    whatsapp = models.CharField(max_length=15, blank=True, null=True)
+    phoneNumber = models.CharField(max_length=15, blank=True, null=True)
+
+    class Meta:
+        verbose_name = "ContactUs"
+        verbose_name_plural = "ContactUs"

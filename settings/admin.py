@@ -1,5 +1,11 @@
 from django.contrib import admin
-from .models import Settings, PlayStoreFormSubmission, PrivacyPolicy, TermsConditions
+from .models import (
+    Settings,
+    PlayStoreFormSubmission,
+    PrivacyPolicy,
+    TermsConditions,
+    ContactUs,
+)
 from modeltranslation.admin import TranslationAdmin
 
 
@@ -15,3 +21,4 @@ class TermsConditionsAdmin(TranslationAdmin):
 
 admin.site.register(Settings)
 admin.site.register(PlayStoreFormSubmission)
+admin.site.register(ContactUs)

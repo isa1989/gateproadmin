@@ -30,6 +30,7 @@ from api.device.views import (
     CarPlateCreateAPIView,
     CarPlateDetailAPIView,
 )
+from api.settings.views import ContactUsListAPIView
 
 urlpatterns = [
     # ------------------------Auth--------------------------
@@ -114,4 +115,6 @@ urlpatterns = [
     path(
         "car-plates/<int:pk>/", CarPlateDetailAPIView.as_view(), name="car-plate-detail"
     ),
+    # -----------------------ContactUs API--------------------------
+    path("contact-us/", ContactUsListAPIView.as_view(), name="contact-us"),
 ]
