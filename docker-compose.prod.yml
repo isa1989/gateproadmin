@@ -22,7 +22,7 @@ services:
       context: .
       dockerfile: Dockerfile.prod
     volumes:
-      - media-data:/media
+      - ./media:/gateproadmin_prod/media
       
     ports:
       - "8008:8008"
