@@ -23,6 +23,8 @@ services:
       dockerfile: Dockerfile.prod
     volumes:
       - ./media:/gateproadmin_prod/media
+      - ./static:/gateproadmin_prod/static
+      
       
     ports:
       - "8008:8008"

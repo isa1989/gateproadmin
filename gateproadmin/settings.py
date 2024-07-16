@@ -26,10 +26,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-i&_0t-+z4ie3u7l(2q3gb2h^x#=frouvd=i_o03sj8kv&n@kj$"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = os.getenv("DEBUG")
 
-ALLOWED_HOSTS = ["*"]
-
+ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS").split(",")
 
 # Application definition
 
@@ -54,7 +53,6 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
-    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.locale.LocaleMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -93,16 +91,6 @@ TEMPLATES = [
 WSGI_APPLICATION = "gateproadmin.wsgi.application"
 
 
-# Database
-# https://docs.djangoproject.com/en/3.2/ref/settings/#databases
-# if DEBUG:
-#     DATABASES = {
-#         "default": {
-#             "ENGINE": "django.db.backends.sqlite3",
-#             "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
-#         }
-#     }
-# else:
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
@@ -167,23 +155,13 @@ STATIC_ROOT = BASE_DIR / "static/"
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
 
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-# EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-# EMAIL_HOST = "smtp.mail.ru"  # e.g., 'smtp.gmail.com'
-# EMAIL_PORT = 465  # Port for SMTP
-# EMAIL_USE_TLS = True  # True if using TLS, False otherwise
-# EMAIL_HOST_USER = "noreply@oilink.io"  # Your email address
-# EMAIL_HOST_PASSWORD = (
-#     "G9HHv7TBGeLr3f5tvifx"  # Your email password or application-specific password
-# )
-# DEFAULT_FROM_EMAIL = "noreply@oilink.io"  # Default sender email
 EMAIL_HOST = "smtp.mail.ru"
 EMAIL_PORT = 465
-EMAIL_HOST_USER = "noreply@oilink.io"  # mail ünvanı
-EMAIL_HOST_PASSWORD = "G9HHv7TBGeLr3f5tvifx"  # mailin şifrəsi
+EMAIL_HOST_USER = "noreply@oilink.io"
+EMAIL_HOST_PASSWORD = "G9HHv7TBGeLr3f5tvifx"
 EMAIL_USE_SSL = True
