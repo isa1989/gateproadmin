@@ -1,16 +1,10 @@
 # serializers.py
 
 from rest_framework import serializers
-from device.models import Device, Pin, CarPlate
+from device.models import Device, CarPlate
 from api.auth.auth import get_customer_from_token
 from customer.models import Customer
 from django.core.validators import RegexValidator
-
-
-class PinSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Pin
-        fields = ("id", "status")
 
 
 class MemberSerializer(serializers.ModelSerializer):
@@ -25,10 +19,10 @@ class MemberSerializer(serializers.ModelSerializer):
 
 class DeviceSerializer(serializers.ModelSerializer):
     deviceId = serializers.IntegerField(source="id", read_only=True)
-    pin = PinSerializer(required=False)
     isOwner = serializers.SerializerMethodField()
     members = MemberSerializer(many=True, required=False)
     status = serializers.CharField(required=False)
+    state = serializers.SerializerMethodField()
 
     class Meta:
         model = Device
@@ -38,9 +32,9 @@ class DeviceSerializer(serializers.ModelSerializer):
             "deviceNumber",
             "deviceName",
             "status",
+            "state",
             "isOwner",
             "members",
-            "pin",  # Ensure 'pin' is included in the fields list
         )
 
     def get_isOwner(self, obj):
@@ -52,6 +46,16 @@ class DeviceSerializer(serializers.ModelSerializer):
             token
         )  # Assuming this function retrieves Customer from token
         return customer == obj.owner if obj.owner else False
+
+    def get_state(self, obj):
+        # Determine state based on mqtt_response value
+        mqtt_response = self.context.get("mqtt_response")
+        if mqtt_response == "0":
+            return "on"
+        elif mqtt_response == "1":
+            return "off"
+        else:
+            return None
 
 
 class InviteMemberSerializer(serializers.Serializer):

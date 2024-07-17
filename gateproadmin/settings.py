@@ -90,7 +90,12 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "gateproadmin.wsgi.application"
 
-
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.sqlite3",
+#         "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
+#     }
+# }
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
@@ -155,6 +160,9 @@ STATIC_ROOT = BASE_DIR / "static/"
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
 
+# OneSignal Configuration
+ONE_SIGNAL_APP_ID = "your_onesignal_app_id"
+ONE_SIGNAL_API_KEY = "your_onesignal_api_key"
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 

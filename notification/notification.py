@@ -1,6 +1,7 @@
 import datetime
 import requests
 from django.views.decorators.csrf import csrf_exempt
+from onesignal_sdk.client import Client
 from django.core.mail import send_mail
 from django.conf import settings
 from notification.utils import calculate_signature
@@ -52,5 +53,13 @@ def send_custom_mail(
     return sent
 
 
-def send_push_notification():
-    pass
+def send_push_notification(message, user_id):
+    client = Client(
+        app_id=settings.ONE_SIGNAL_APP_ID, api_key=settings.ONE_SIGNAL_API_KEY
+    )
+    new_notification = {
+        "contents": {"en": message},
+        "include_player_ids": [user_id],
+    }
+    response = client.create_notification(new_notification)
+    print(response.status_code, response.json())

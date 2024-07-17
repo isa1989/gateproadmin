@@ -59,6 +59,7 @@ class ContactUs(models.Model):
     facebook = models.URLField(blank=True, null=True)
     whatsapp = models.CharField(max_length=15, blank=True, null=True)
     phoneNumber = models.CharField(max_length=15, blank=True, null=True)
+    email = models.EmailField(blank=True, null=True)
 
     class Meta:
         verbose_name = "ContactUs"

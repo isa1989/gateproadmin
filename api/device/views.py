@@ -3,11 +3,10 @@ from rest_framework import generics, status
 from django.http import Http404, JsonResponse
 from rest_framework.response import Response
 from django.db.models import Q
-from device.models import Device, Pin, CarPlate
+from device.models import Device, CarPlate
 from api.auth.auth import get_customer_from_token
 from .serializers import (
     DeviceSerializer,
-    PinSerializer,
     InviteMemberSerializer,
     MemberSerializer,
     CarPlateSerializer,
@@ -30,8 +29,9 @@ def mqtt_listener(deviceNumber):
         nonlocal result
         if not processed_message and msg.topic == f"{deviceNumber}/sensor/State":
             payload = msg.payload.decode()
+
             if payload == "0" or payload == "1":
-                result = True
+                result = payload
             else:
                 result = False
             client.disconnect()
@@ -51,6 +51,29 @@ def mqtt_listener(deviceNumber):
     return result
 
 
+def mqtt_listener_publish(deviceNumber, state):
+    def on_connect(client, userdata, flags, rc):
+        if rc == 0:
+            print("Connected to broker")
+            client.publish(f"{deviceNumber}/sensor/State", state)
+        else:
+            print("Connection failed with code", rc)
+
+    def on_publish(client, userdata, mid):
+        print("Message published")
+        client.disconnect()
+
+    broker_address = "46.32.168.23"
+    port = 1883
+    client = mqtt.Client()
+    client.on_connect = on_connect
+    client.on_publish = on_publish
+    client.username_pw_set("iot", "Passw0rdIOT")
+    client.connect(broker_address, port, 60)
+
+    client.loop_forever()
+
+
 class DeviceListView(APIView):
     serializer_class = DeviceSerializer
     permission_classes = [IsCustomerAuthenticated]
@@ -62,8 +85,16 @@ class DeviceListView(APIView):
         queryset = Device.objects.filter(
             Q(owner=customer) | Q(members=customer)
         ).distinct()
-        serializer = DeviceSerializer(queryset, many=True)
-        return Response(serializer.data)
+        updated_devices = []
+        for device in queryset:
+            mqtt_response = mqtt_listener(device.deviceNumber)
+            device.status = "online" if mqtt_response == "0" else "offline"
+            serializer = DeviceSerializer(
+                device, context={"mqtt_response": mqtt_response}
+            )
+            updated_devices.append(serializer.data)
+
+        return Response(updated_devices)
 
     def post(self, request, *args, **kwargs):
         token = self.request.headers.get("Authorization")
@@ -78,7 +109,6 @@ class DeviceListView(APIView):
                 )
 
             mqtt_response = mqtt_listener(device_number)
-
             if not mqtt_response:
                 return Response(
                     {"error": "Device is offline"}, status=status.HTTP_400_BAD_REQUEST
@@ -87,9 +117,12 @@ class DeviceListView(APIView):
             device_data = {
                 "owner": customer.id,
                 "status": "online",
+                "state": mqtt_response,
             }
 
-            serializer = DeviceSerializer(device, data=device_data)
+            serializer = DeviceSerializer(
+                device, data=device_data, context={"mqtt_response": mqtt_response}
+            )
             serializer.is_valid(raise_exception=True)
             serializer.save()
             return Response(serializer.data, status=status.HTTP_200_OK)
@@ -97,6 +130,7 @@ class DeviceListView(APIView):
         else:
             return Response(
                 {"error": "Device with this deviceNumber does not exist."},
+                status=status.HTTP_400_BAD_REQUEST,
             )
 
 
@@ -106,6 +140,11 @@ class DeviceDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Device.objects.all()
     lookup_field = "pk"
 
+    def get_permissions(self):
+        if self.request.method == "DELETE":
+            self.permission_classes = [IsCustomerAuthenticated, IsOwnerOfDevice]
+        return super(DeviceDetailView, self).get_permissions()
+
     def get_queryset(self):
         token = self.request.headers.get("Authorization")
         customer = get_customer_from_token(token)
@@ -114,14 +153,20 @@ class DeviceDetailView(generics.RetrieveUpdateDestroyAPIView):
         ).distinct()
         return queryset
 
-    def get_permissions(self):
-        if self.request.method == "DELETE":
-            self.permission_classes = [IsCustomerAuthenticated, IsOwnerOfDevice]
-        return super(DeviceDetailView, self).get_permissions()
+    def get(self, request, *args, **kwargs):
+        instance = self.get_object()
+        mqtt_response = mqtt_listener(instance.deviceNumber)
+        serializer = self.get_serializer(
+            instance, context={"mqtt_response": mqtt_response}
+        )
+        return Response(serializer.data)
 
     def patch(self, request, *args, **kwargs):
         partial = kwargs.pop("partial", False)
         instance = self.get_object()
+        state = request.data.get("state")
+        if state:
+            pass
         serializer = self.get_serializer(instance, data=request.data, partial=partial)
         serializer.is_valid(raise_exception=True)
         serializer.save()
@@ -145,26 +190,26 @@ class DeviceDetailView(generics.RetrieveUpdateDestroyAPIView):
         instance.save()
 
 
-class DevicePinDetailAPIView(generics.UpdateAPIView):
-    serializer_class = PinSerializer
-    permission_classes = [IsCustomerAuthenticated]
-    queryset = Pin.objects.all()
-    lookup_url_kwarg = "pin_id"
+# class DevicePinDetailAPIView(generics.UpdateAPIView):
+#     serializer_class = DeviceSerializer
+#     permission_classes = [IsCustomerAuthenticated]
+#     queryset = Device.objects.all()
+#     lookup_url_kwarg = "pin_id"
 
-    def patch(self, request, *args, **kwargs):
-        try:
-            pin = self.get_object()
-        except Pin.DoesNotExist:
-            return Response(
-                {"message": "Pin not found."}, status=status.HTTP_404_NOT_FOUND
-            )
+#     def patch(self, request, *args, **kwargs):
+#         try:
+#             pin = self.get_object()
+#         except Pin.DoesNotExist:
+#             return Response(
+#                 {"message": "Pin not found."}, status=status.HTTP_404_NOT_FOUND
+#             )
 
-        serializer = self.get_serializer(instance=pin, data=request.data, partial=True)
-        if serializer.is_valid():
-            serializer.save()
-            return Response({"message": "Pin status updated successfully."})
-        else:
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+#         serializer = self.get_serializer(instance=pin, data=request.data, partial=True)
+#         if serializer.is_valid():
+#             serializer.save()
+#             return Response({"message": "Pin status updated successfully."})
+#         else:
+#             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class InviteMemberAPIView(generics.CreateAPIView):
