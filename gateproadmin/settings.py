@@ -57,6 +57,8 @@ CORS_ALLOWED_ORIGINS = [
 ]
 
 CORS_ALLOW_CREDENTIALS = True
+CSRF_COOKIE_SECURE = True
+
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
