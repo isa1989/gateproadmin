@@ -208,6 +208,7 @@ def transform_request_data(customer, request_data=None):
             ),
             "name": request_data.get("name", customer.name),
             "surname": request_data.get("surname", customer.surname),
+            "email_address": request_data.get("email_address", customer.email_address),
         }
     else:
         # Format data for GET response
@@ -222,6 +223,7 @@ def transform_request_data(customer, request_data=None):
             },
             "name": customer.name,
             "surname": customer.surname,
+            "email_address": customer.email_address,
         }
 
 

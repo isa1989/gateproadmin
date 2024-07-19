@@ -62,6 +62,7 @@ class CustomerSerializer(serializers.ModelSerializer):
             "phone_number",
             "firebase_token",
             "email",
+            "email_address",
             "sms",
             "push",
             "is_active",
