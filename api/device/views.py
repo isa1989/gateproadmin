@@ -53,14 +53,20 @@ def mqtt_listener(deviceNumber):
 
 def mqtt_listener_publish(deviceNumber, state):
     def on_connect(client, userdata, flags, rc):
-        if rc == 0:
-            print("Connected to broker")
-            client.publish(f"{deviceNumber}/sensor/State", state)
+        if rc == 0:  # successful connection
+            if state == "on":
+                client.publish(f"{deviceNumber}/open/State/cmd", "GPIO,5,1")
+                client.publish(f"{deviceNumber}/open/State/cmd", "GPIO,5,0")
+            elif state == "off":
+                client.publish(f"{deviceNumber}/close/State/cmd", "GPIO,4,1")
+                client.publish(f"{deviceNumber}/close/State/cmd", "GPIO,4,0")
+            else:
+                print("Invalid state")
         else:
             print("Connection failed with code", rc)
 
     def on_publish(client, userdata, mid):
-        print("Message published")
+        print("Message published with mid: ", mid)
         client.disconnect()
 
     broker_address = "46.32.168.23"
@@ -166,7 +172,7 @@ class DeviceDetailView(generics.RetrieveUpdateDestroyAPIView):
         instance = self.get_object()
         state = request.data.get("state")
         if state:
-            pass
+            mqtt_listener_publish(instance.deviceNumber, state)
         serializer = self.get_serializer(instance, data=request.data, partial=partial)
         serializer.is_valid(raise_exception=True)
         serializer.save()

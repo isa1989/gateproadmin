@@ -161,8 +161,8 @@ MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
 
 # OneSignal Configuration
-ONE_SIGNAL_APP_ID = "your_onesignal_app_id"
-ONE_SIGNAL_API_KEY = "your_onesignal_api_key"
+ONE_SIGNAL_APP_ID = "a5b0b78a-8af8-406e-804d-1bd72ba79136"
+ONE_SIGNAL_API_KEY = "YjA3NmFkMTEtMWZiOS00MGU4LWIzYjktOTcwMDVjN2IzYTQy"
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 

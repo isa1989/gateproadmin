@@ -53,13 +53,25 @@ def send_custom_mail(
     return sent
 
 
-def send_push_notification(message, user_id):
-    client = Client(
-        app_id=settings.ONE_SIGNAL_APP_ID, api_key=settings.ONE_SIGNAL_API_KEY
-    )
-    new_notification = {
-        "contents": {"en": message},
-        "include_player_ids": [user_id],
+def send_push_notification(contents, include_player_ids):
+    headers = {
+        "Content-Type": "application/json; charset=utf-8",
+        "Authorization": f"Basic {settings.ONE_SIGNAL_API_KEY}",
     }
-    response = client.create_notification(new_notification)
-    print(response.status_code, response.json())
+
+    payload = {
+        "app_id": settings.ONE_SIGNAL_APP_ID,
+        "contents": {"en": contents},
+        "include_player_ids": include_player_ids,
+    }
+
+    response = requests.post(
+        "https://onesignal.com/api/v1/notifications", headers=headers, json=payload
+    )
+
+    if response.status_code == 200:
+        print("Notification sent successfully!")
+    else:
+        print(f"Failed to send notification: {response.status_code} - {response.text}")
+
+    return response.json()

@@ -23,7 +23,6 @@ from api.notification.views import (
 from api.device.views import (
     DeviceListView,
     DeviceDetailView,
-    # DevicePinDetailAPIView,
     InviteMemberAPIView,
     RemoveMemberFromDeviceAPIView,
     DeviceMembersListView,
@@ -90,11 +89,6 @@ urlpatterns = [
     # -----------------------Device API--------------------------
     path("devices/", DeviceListView.as_view(), name="devices-list"),
     path("devices/<int:pk>/", DeviceDetailView.as_view(), name="device-detail-unlink"),
-    # path(
-    #     "devices/<int:device_id>/pins/<int:pin_id>/",
-    #     DevicePinDetailAPIView.as_view(),
-    #     name="device-pin-update",
-    # ),
     path(
         "devices/<int:deviceId>/invite/",
         InviteMemberAPIView.as_view(),

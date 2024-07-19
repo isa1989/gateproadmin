@@ -229,6 +229,11 @@ class ProfileUpdateAPIView(APIView):
         serializer = CustomerSerializer(customer, data=transformed_data, partial=True)
         if serializer.is_valid():
             serializer.save()
-            return Response({"message": "User profile updated successfully."})
+            return Response(
+                {
+                    "message": "User profile updated successfully.",
+                    "data": serializer.data,
+                }
+            )
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
