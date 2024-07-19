@@ -185,33 +185,36 @@ class CustomerDeleteView(APIView):
         )
 
 
-def transform_request_data(customer, request_data):
-    transformed_data = {
-        "firebase_token": request_data.get("firebaseToken", customer.firebase_token),
-        "language": request_data.get("language"),
-        "email": request_data.get("notificationPreferences", {}).get(
-            "email", customer.email
-        ),
-        "sms": request_data.get("notificationPreferences", {}).get("sms", customer.sms),
-        "push": request_data.get("notificationPreferences", {}).get(
-            "push", customer.push
-        ),
-        "name": request_data.get("name", customer.name),
-        "surname": request_data.get("surname", customer.surname),
-    }
-    return transformed_data
-
-
-class ProfileUpdateAPIView(APIView):
-    permission_classes = [IsCustomerAuthenticated]
-
-    def get(self, request, *args, **kwargs):
-        token = request.headers.get("Authorization")
-        customer = get_customer_from_token(token)
-        data = {
+def transform_request_data(customer, request_data=None):
+    """
+    Transforms request data for PATCH or formats data for GET.
+    If request_data is provided, it prepares the data for updates.
+    Otherwise, it formats the customer data for response.
+    """
+    if request_data:
+        # Prepare data for updates
+        return {
+            "firebase_token": request_data.get(
+                "firebaseToken", customer.firebase_token
+            ),
+            "email": request_data.get("notificationPreferences", {}).get(
+                "email", customer.email
+            ),
+            "sms": request_data.get("notificationPreferences", {}).get(
+                "sms", customer.sms
+            ),
+            "push": request_data.get("notificationPreferences", {}).get(
+                "push", customer.push
+            ),
+            "name": request_data.get("name", customer.name),
+            "surname": request_data.get("surname", customer.surname),
+        }
+    else:
+        # Format data for GET response
+        return {
             "userId": customer.pk,
             "firebaseToken": customer.firebase_token,
-            "language": "en",
+            "language": "en",  # Assuming static language value; adjust if necessary
             "notificationPreferences": {
                 "email": customer.email,
                 "sms": customer.sms,
@@ -220,19 +223,32 @@ class ProfileUpdateAPIView(APIView):
             "name": customer.name,
             "surname": customer.surname,
         }
+
+
+class ProfileUpdateAPIView(APIView):
+    permission_classes = [IsCustomerAuthenticated]
+
+    def get(self, request, *args, **kwargs):
+        token = request.headers.get("Authorization")
+        customer = get_customer_from_token(token)
+        data = transform_request_data(customer)  # Use transform_request_data for GET
         return Response(data)
 
     def patch(self, request, *args, **kwargs):
         token = request.headers.get("Authorization")
         customer = get_customer_from_token(token)
-        transformed_data = transform_request_data(customer, request.data)
+        transformed_data = transform_request_data(
+            customer, request.data
+        )  # Use transform_request_data for PATCH
         serializer = CustomerSerializer(customer, data=transformed_data, partial=True)
         if serializer.is_valid():
             serializer.save()
+            # Return data in the same format as the GET method
+            data = transform_request_data(customer)
             return Response(
                 {
                     "message": "User profile updated successfully.",
-                    "data": serializer.data,
+                    "data": data,
                 }
             )
         else:
