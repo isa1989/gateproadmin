@@ -55,7 +55,6 @@ class Customer(AbstractBaseUser, PermissionsMixin):
     email = models.BooleanField(default=True)
     sms = models.BooleanField(default=True)
     push = models.BooleanField(default=True)
-    # preferred_language = models.CharField(max_length=3, blank=True, null=True)
     car_plate = models.ManyToManyField(
         "device.CarPlate", related_name="customer_cars", blank=True
     )

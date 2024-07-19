@@ -28,6 +28,7 @@ from api.device.views import (
     DeviceMembersListView,
     CarPlateCreateAPIView,
     CarPlateDetailAPIView,
+    CarPlateListView,
 )
 from api.settings.views import ContactUsListAPIView
 
@@ -111,4 +112,6 @@ urlpatterns = [
     ),
     # -----------------------ContactUs API--------------------------
     path("contact-us/", ContactUsListAPIView.as_view(), name="contact-us"),
+    # -----------------------Car plates list for ALPR device--------------------------
+    path("alpr/carplates/", CarPlateListView.as_view(), name="carplate-list"),
 ]

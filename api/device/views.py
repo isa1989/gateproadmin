@@ -1,9 +1,11 @@
 import re
 from rest_framework import generics, status
-from django.http import Http404, JsonResponse
+from django.http import JsonResponse
 from rest_framework.response import Response
+from rest_framework.permissions import AllowAny
 from django.db.models import Q
 from device.models import Device, CarPlate
+from customer.models import Customer
 from api.auth.auth import get_customer_from_token
 from .serializers import (
     DeviceSerializer,
@@ -341,3 +343,30 @@ class CarPlateDetailAPIView(generics.RetrieveDestroyAPIView):
             return Response(
                 {"message": "Car plate not found."}, status=status.HTTP_404_NOT_FOUND
             )
+
+
+class CarPlateListView(generics.ListAPIView):
+    permission_classes = [AllowAny]
+    serializer_class = CarPlateSerializer
+
+    def get_queryset(self):
+        phone_number = self.request.query_params.get("PhoneNumber", None)
+        device_number = self.request.query_params.get("DeviceNumber", None)
+
+        if phone_number and device_number:
+            try:
+                customer = Customer.objects.get(phone_number=phone_number)
+                if Device.objects.filter(
+                    owner=customer, deviceNumber=device_number
+                ).exists():
+                    return customer.car_plate.all()
+            except Customer.DoesNotExist:
+                pass
+
+        return CarPlate.objects.none()
+
+    def list(self, request, *args, **kwargs):
+        queryset = self.get_queryset()
+        serializer = self.get_serializer(queryset, many=True)
+        car_plates = [plate["carPlateNumber"] for plate in serializer.data]
+        return Response({"car_plates": car_plates})
