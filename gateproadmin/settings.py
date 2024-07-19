@@ -53,11 +53,11 @@ INSTALLED_APPS = [
 
 CORS_ALLOWED_ORIGINS = [
     "https://api-test.oilink.io",
-    "https://api-test.oilink.io/gatepro/admin",
 ]
 
 CORS_ALLOW_CREDENTIALS = True
 CSRF_COOKIE_SECURE = True
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
 
 MIDDLEWARE = [
