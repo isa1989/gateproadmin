@@ -206,11 +206,11 @@ button:focus,
 .section_title h2 {
     font-size: 40px;
     font-weight: 700;
-    color: var(--dark-purple);
+    color: #28b0ac;
 }
 
 .section_title h2 span {
-    color: var(--purple);
+    color: #28b0ac;
 }
 
 .row_am {
@@ -253,8 +253,8 @@ button:focus,
 /* white button */
 .white_btn {
     padding: 10px 45px;
-    border: 1px solid var(--purple);
-    color: var(--purple);
+    border: 1px solid #28b0ac;
+    color: #28b0ac;
     border-radius: 50px;
     background-color: var(--bg-white);
     font-weight: 700;
@@ -271,7 +271,7 @@ button:focus,
     top: 0;
     width: 0%;
     height: 100%;
-    background-color: var(--bg-purple);
+    background-color: #28b0ac;
     border-radius: 50px;
     transition: .6s all;
     z-index: -1;
@@ -714,7 +714,7 @@ header.fixed .navbar {
 }
 
 .banner_section .banner_text h2 span {
-    color: var(--purple);
+    color: #28b0ac;
 }
 
 .banner_section .banner_text p {
@@ -1494,7 +1494,7 @@ iframe#youtubevideo {
 }
 
 .pricing_section .pricing_pannel .pricing_block.highlited_block {
-    background-color: var(--purple);
+    background-color: #28b0ac;
 }
 
 .pricing_section .pricing_pannel .pricing_block.highlited_block p,
@@ -1527,7 +1527,7 @@ iframe#youtubevideo {
 
 .pricing_section .pricing_pannel .pricing_block .price {
     font-size: 48px;
-    color: var(--purple);
+    color: #28b0ac;
     margin: 25px 0;
     display: block;
     font-weight: 600;
@@ -1625,7 +1625,6 @@ iframe#youtubevideo {
 /* interface images */
 .interface_section .owl-item .screen_frame_img img {
     transform: scale(.9);
-    border: 2px solid #000;
     border-radius: 20px;
     transition: 1s all;
     margin: 0 auto;
@@ -1633,7 +1632,6 @@ iframe#youtubevideo {
 
 .interface_section .owl-item.center .screen_frame_img img {
     transform: scale(1);
-    border: 3px solid #000;
 
 }
 
@@ -1651,7 +1649,7 @@ iframe#youtubevideo {
 }
 
 .free_app_section .container .free_app_inner {
-    background-color: var(--bg-purple);
+    background-color: #28b0ac;
     border-radius: 30px;
     padding: 20px 100px;
     padding-bottom: 50px;

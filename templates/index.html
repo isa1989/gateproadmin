@@ -38,7 +38,9 @@
       	<!-- navigation bar -->
         <nav class="navbar navbar-expand-lg">
           <a class="navbar-brand" href="#">
-            <img src="{% static 'images/logo.svg' %}" alt="image">
+            {% if home_page and home_page.logo %}
+                <img src="{{ home_page.logo.url }}" alt="Logo">
+            {% endif %}
           </a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -338,7 +340,9 @@
             </div>
             <!-- feature image -->
             <div class="feature_img" data-aos="fade-up" data-aos-duration="1500" data-aos-delay="100">
-              <img src="{% static 'images/features_frame.png' %}" alt="Feature Image">
+              {% if home_page and home_page.logo %}
+                <img src="{{ home_page.feature_image.url }}" alt="Logo">
+            {% endif %}
             </div>
             </div>
             
@@ -348,143 +352,12 @@
     <!-- Features-Section-end -->
 
     <!-- About-App-Section-Start -->
-    <section class="row_am about_app_section">
-      <!-- container start -->
-      <div class="container">
-        <!-- row start -->
-        <div class="row">
-          <div class="col-lg-6">
-    
-            <!-- about images -->
-            <div class="about_img" data-aos="fade-in" data-aos-duration="1500">
-              <div class="frame_img">
-                <img class="moving_position_animatin" src="{% static 'images/about-frame.png' %}" alt="About Frame">
-              </div>
-              <div class="screen_img">
-                <img class="moving_animation" src="{% static 'images/about-screen.png' %}" alt="About Screen">
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-6">
-    
-            <!-- about text -->
-            <div class="about_text">
-              <div class="section_title" data-aos="fade-up" data-aos-duration="1500" data-aos-delay="100">
-    
-                <!-- h2 -->
-                <h2>Some awesome words <span>about app.</span></h2>
-    
-                <!-- p -->
-                <p>
-                  Lorem Ipsum is simply dummy text of the printing and typesetting industry lorem Ipsum has been the
-                  industrys standard dummy text ever since the when an unknown printer took a galley of type and. Lorem
-                  ipsum dolor sit amet.
-                </p>
-              </div>
-    
-              <!-- UL -->
-              <ul class="app_statstic" id="counter" data-aos="fade-in" data-aos-duration="1500">
-                <li>
-                  <div class="icon">
-                    <img src="{% static 'images/download.png' %}" alt="Download Icon">
-                  </div>
-                  <div class="text">
-                    <p><span class="counter-value" data-count="17">0</span><span>M+</span></p>
-                    <p>Download</p>
-                  </div>
-                </li>
-                <li>
-                  <div class="icon">
-                    <img src="{% static 'images/followers.png' %}" alt="Followers Icon">
-                  </div>
-                  <div class="text">
-                    <p><span class="counter-value" data-count="08">0 </span><span>M+</span></p>
-                    <p>Followers</p>
-                  </div>
-                </li>
-                <li>
-                  <div class="icon">
-                    <img src="{% static 'images/reviews.png' %}" alt="Reviews Icon">
-                  </div>
-                  <div class="text">
-                    <p><span class="counter-value" data-count="2300">1500</span><span>+</span></p>
-                    <p>Reviews</p>
-                  </div>
-                </li>
-                <li>
-                  <div class="icon">
-                    <img src="{% static 'images/countries.png' %}" alt="Countries Icon">
-                  </div>
-                  <div class="text">
-                    <p><span class="counter-value" data-count="150">0</span><span>+</span></p>
-                    <p>Countries</p>
-                  </div>
-                </li>
-              </ul>
-              <!-- UL end -->
-              <a href="contact.html" class="btn puprple_btn" data-aos="fade-in" data-aos-duration="1500">START FREE TRIAL</a>
-            </div>
-          </div>
-        </div>
-        <!-- row end -->
-      </div>
-      <!-- container end -->
-    </section>
+ 
     
     <!-- About-App-Section-end -->
 
     <!-- ModernUI-Section-Start -->
-    <section class="row_am modern_ui_section">
-      <!-- container start -->
-      <div class="container">
-        <!-- row start -->
-        <div class="row">
-          <div class="col-lg-6">
-            <!-- UI content -->
-            <div class="ui_text">
-              <div class="section_title" data-aos="fade-up" data-aos-duration="1500" data-aos-delay="100">
-                <h2>Beautiful design with <span>modern UI</span></h2>
-                <p>
-                  Lorem Ipsum is simply dummy text of the printing and typesetting industry lorem Ipsum has been the
-                  industrys standard dummy text ever since the when an unknown printer took a galley of type and.
-                </p>
-              </div>
-              <ul class="design_block">
-                <li data-aos="fade-up" data-aos-duration="1500">
-                  <h4>Carefully designed</h4>
-                  <p>Lorem Ipsum is simply dummy text of the printing and type esetting industry lorem Ipsum has.</p>
-                </li>
-                <li data-aos="fade-up" data-aos-duration="1500">
-                  <h4>Seamless Sync</h4>
-                  <p>Simply dummy text of the printing and typesetting inustry lorem Ipsum has Lorem dollar summit.</p>
-                </li>
-                <li data-aos="fade-up" data-aos-duration="1500">
-                  <h4>Access Drive</h4>
-                  <p>Printing and typesetting industry lorem Ipsum has been the industrys standard dummy text of type
-                    setting.</p>
-                </li>
-              </ul>
-            </div>
-          </div>
-          <div class="col-lg-6">
-            <!-- UI Image -->
-            <div class="ui_images" data-aos="fade-in" data-aos-duration="1500">
-              <div class="left_img">
-                <img class="moving_position_animatin" src="{% static 'images/modern01.png' %}" alt="Modern Image 01">
-              </div>
-              <!-- UI Image -->
-              <div class="right_img">
-                <img class="moving_position_animatin" src="{% static 'images/secure_data.png' %}" alt="Secure data">
-                <img class="moving_position_animatin" src="{% static 'images/modern02.png' %}" alt="Modern Image 02">
-                <img class="moving_position_animatin" src="{% static 'images/modern03.png' %}" alt="Modern Image 03">
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- row end -->
-      </div>
-      <!-- container end -->
-    </section>
+   
     
     <!-- ModernUI-Section-end -->
 
@@ -578,103 +451,7 @@
     <!-- How-It-Workes-Section-end -->
 
     <!-- Testimonial-Section start -->
-    <section class="row_am testimonial_section"> 
-      <!-- container start -->
-      <div class="container">
-        <div class="section_title" data-aos="fade-up" data-aos-duration="1500" data-aos-delay="300">
-          <!-- h2 -->
-          <h2>What our <span>customer say</span></h2>
-          <!-- p -->
-          <p>Lorem Ipsum is simply dummy text of the printing and typesetting <br> industry. Lorem Ipsum has been the standard dummy.</p>
-        </div>
-        <div class="testimonial_block" data-aos="fade-in" data-aos-duration="1500">
-          <div id="testimonial_slider" class="owl-carousel owl-theme">
-            <!-- user 1 -->
-            <div class="item">
-              <div class="testimonial_slide_box">
-                <div class="rating">
-                  <span><i class="icofont-star"></i></span>
-                  <span><i class="icofont-star"></i></span>
-                  <span><i class="icofont-star"></i></span>
-                  <span><i class="icofont-star"></i></span>
-                  <span><i class="icofont-star"></i></span>
-                </div>
-                <p class="review">
-                  “ Lorem Ipsum is simply dummy text of the printing and typesetting. Lorem Ipsum has been the standard dummy. ”
-                </p>
-                <div class="testimonial_img">
-                  <img src="{% static 'images/testimonial_user1.png' %}" alt="image">
-                </div>
-                <h3>Shayna John</h3>
-                <span class="designation">Creative inc</span>
-              </div>
-            </div>
-    
-            <!-- user 2 -->
-            <div class="item">
-              <div class="testimonial_slide_box">
-                <div class="rating">
-                  <span><i class="icofont-star"></i></span>
-                  <span><i class="icofont-star"></i></span>
-                  <span><i class="icofont-star"></i></span>
-                  <span><i class="icofont-star"></i></span>
-                  <span><i class="icofont-star"></i></span>
-                </div>
-                <p class="review">
-                  “ Lorem Ipsum is simply dummy text of the printing and typesetting. Lorem Ipsum has been the standard dummy. ”
-                </p>
-                <div class="testimonial_img">
-                  <img src="{% static 'images/testimonial_user2.png' %}" alt="image">
-                </div>
-                <h3>Willium Den</h3>
-                <span class="designation">Creative inc</span>
-              </div>
-            </div>
-            
-            <!-- user 3 -->
-            <div class="item">
-              <div class="testimonial_slide_box">
-                <div class="rating">
-                  <span><i class="icofont-star"></i></span>
-                  <span><i class="icofont-star"></i></span>
-                  <span><i class="icofont-star"></i></span>
-                  <span><i class="icofont-star"></i></span>
-                  <span><i class="icofont-star"></i></span>
-                </div>
-                <p class="review">
-                  “ Lorem Ipsum is simply dummy text of the printing and typesetting. Lorem Ipsum has been the standard dummy. ”
-                </p>
-                <div class="testimonial_img">
-                  <img src="{% static 'images/testimonial_user3.png' %}" alt="image">
-                </div>
-                <h3>Cyrus Stephen</h3>
-                <span class="designation">Creative inc</span>
-              </div>
-            </div>
-          </div>
-    
-          <!-- total review -->
-          <div class="total_review">
-            <div class="rating">
-              <span><i class="icofont-star"></i></span>
-              <span><i class="icofont-star"></i></span>
-              <span><i class="icofont-star"></i></span>
-              <span><i class="icofont-star"></i></span>
-              <span><i class="icofont-star"></i></span>
-              <p>5.0 / 5.0</p>
-            </div>
-            <h3>2578</h3>
-            <a href="reviews.html">TOTAL USER REVIEWS <i class="icofont-arrow-right"></i></a>
-          </div>
-    
-          <!-- avatar faces -->
-          <div class="avatar_faces">
-            <img src="{% static 'images/avtar_testimonial.png' %}" alt="image">
-          </div>
-        </div>
-      </div>
-      <!-- container end -->
-    </section>
+ 
     
     <!-- Testimonial-Section end -->
 
@@ -904,7 +681,7 @@
         </div>
         <!-- pricing box yearly end -->
     
-        <p class="contact_text" data-aos="fade-up" data-aos-duration="1500">Not sure what to choose ? <a href="#">contact us</a> for custom packages</p>
+        {% comment %} <p class="contact_text" data-aos="fade-up" data-aos-duration="1500">Not sure what to choose ? <a href="#">contact us</a> for custom packages</p> {% endcomment %}
       </div>
       <!-- container end -->
     </section>
@@ -912,90 +689,7 @@
     <!-- Pricing-Section end -->
 
     <!-- FAQ-Section start -->
-    <section class="row_am faq_section">
-      <!-- container start -->
-      <div class="container">
-        <div class="section_title" data-aos="fade-up" data-aos-duration="1500" data-aos-delay="300">
-          <!-- h2 -->
-          <h2><span>FAQ</span> - Frequently Asked Questions</h2>
-          <!-- p -->
-          <p>Lorem Ipsum is simply dummy text of the printing and typese tting <br> indus orem Ipsum has beenthe
-            standard dummy.</p>
-        </div>
-        <!-- faq data -->
-        <div class="faq_panel">
-          <div class="accordion" id="accordionExample">
-            <div class="card" data-aos="fade-up" data-aos-duration="1500">
-              <div class="card-header" id="headingOne">
-                <h2 class="mb-0">
-                  <button type="button" class="btn btn-link active" data-toggle="collapse" data-target="#collapseOne">
-                  	<i class="icon_faq icofont-plus"></i></i> How can i pay ?</button>
-                </h2>
-              </div>
-              <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
-                <div class="card-body">
-                  <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry lorem Ipsum has. been the
-                    industrys standard dummy text ever since the when an unknown printer took a galley of type and
-                    scrambled it to make a type specimen book. It has survived not only five cen turies but also the
-                    leap into electronic typesetting, remaining essentially unchanged.</p>
-                </div>
-              </div>
-            </div>
-            <div class="card" data-aos="fade-up" data-aos-duration="1500">
-              <div class="card-header" id="headingTwo">
-                <h2 class="mb-0">
-                  <button type="button" class="btn btn-link collapsed" data-toggle="collapse"
-                    data-target="#collapseTwo"><i class="icon_faq icofont-plus"></i></i> How to setup account ?</button>
-                </h2>
-              </div>
-              <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
-                <div class="card-body">
-                  <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry lorem Ipsum has. been the
-                    industrys standard dummy text ever since the when an unknown printer took a galley of type and
-                    scrambled it to make a type specimen book. It has survived not only five cen turies but also the
-                    leap into electronic typesetting, remaining essentially unchanged.</p>
-                </div>
-              </div>
-            </div>
-            <div class="card" data-aos="fade-up" data-aos-duration="1500">
-              <div class="card-header" id="headingThree">
-                <h2 class="mb-0">
-                  <button type="button" class="btn btn-link collapsed" data-toggle="collapse"
-                    data-target="#collapseThree"><i class="icon_faq icofont-plus"></i></i>What is process to get refund
-                    ?</button>
-                </h2>
-              </div>
-              <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
-                <div class="card-body">
-                  <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry lorem Ipsum has. been the
-                    industrys standard dummy text ever since the when an unknown printer took a galley of type and
-                    scrambled it to make a type specimen book. It has survived not only five cen turies but also the
-                    leap into electronic typesetting, remaining essentially unchanged.</p>
-                </div>
-              </div>
-            </div>
-            <div class="card" data-aos="fade-up" data-aos-duration="1500">
-              <div class="card-header" id="headingFour">
-                <h2 class="mb-0">
-                  <button type="button" class="btn btn-link collapsed" data-toggle="collapse"
-                    data-target="#collapseFour"><i class="icon_faq icofont-plus"></i></i>What is process to get refund
-                    ?</button>
-                </h2>
-              </div>
-              <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionExample">
-                <div class="card-body">
-                  <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry lorem Ipsum has. been the
-                    industrys standard dummy text ever since the when an unknown printer took a galley of type and
-                    scrambled it to make a type specimen book. It has survived not only five cen turies but also the
-                    leap into electronic typesetting, remaining essentially unchanged.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- container end -->
-    </section>
+   
     <!-- FAQ-Section end -->
 
     <!-- Beautifull-interface-Section start -->
@@ -1014,36 +708,16 @@
         <!-- screen slider start -->
         <div class="screen_slider">
           <div id="screen_slider" class="owl-carousel owl-theme">
+            {% for screen_frame in screen_frames %}
             <div class="item">
-              <div class="screen_frame_img">
-                <img src="{% static 'images/screen-1.png' %}" alt="image">
-              </div>
+                <div class="screen_frame_img">
+                    {% if screen_frame.image %}
+                        <img src="{{ screen_frame.image.url }}" alt="Screen Frame Image">
+                    {% endif %}
+                </div>
             </div>
-            <div class="item">
-              <div class="screen_frame_img">
-                <img src="{% static 'images/screen-2.png' %}" alt="image">
-              </div>
-            </div>
-            <div class="item">
-              <div class="screen_frame_img">
-                <img src="{% static 'images/screen-3.png' %}" alt="image">
-              </div>
-            </div>
-            <div class="item">
-              <div class="screen_frame_img">
-                <img src="{% static 'images/screen-4.png' %}" alt="image">
-              </div>
-            </div>
-            <div class="item">
-              <div class="screen_frame_img">
-                <img src="{% static 'images/screen-5.png' %}" alt="image">
-              </div>
-            </div>
-            <div class="item">
-              <div class="screen_frame_img">
-                <img src="{% static 'images/screen-3.png' %}" alt="image">
-              </div>
-            </div>
+      
+        {% endfor %}
           </div>
         </div>
         <!-- screen slider end -->
@@ -1086,8 +760,18 @@
             <!-- images -->
             <div class="col-md-6">
               <div class="free_img">
-                <img src="{% static 'images/download-screen01.png' %}" alt="image">
-                <img class="mobile_mockup" src="{% static 'images/download-screen02.png' %}" alt="image">
+                {% if mobile_mockups %}
+                {% for mockup in mobile_mockups %}
+                    {% if forloop.first %}
+                        <!-- Display the first mockup image as the main image -->
+                        <img src="{{ mockup.image.url }}" alt="image">
+                    {% else %}
+                        <!-- Display subsequent mockup images with a different class -->
+                        <img class="mobile_mockup" src="{{ mockup.image.url }}" alt="image">
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+                
               </div>
             </div>
           </div>
@@ -1100,64 +784,7 @@
     <!-- Download-Free-App-section-end  -->
 
     <!-- Story-Section-Start -->
-    <section class="row_am latest_story" id="blog">
-      <!-- container start -->
-      <div class="container">
-        <div class="section_title" data-aos="fade-in" data-aos-duration="1500" data-aos-delay="100">
-          <h2>Read latest <span>story</span></h2>
-          <p>Lorem Ipsum is simply dummy text of the printing and typese tting <br> indus orem Ipsum has beenthe standard dummy.</p>
-        </div>
-        <!-- row start -->
-        <div class="row">
-          <!-- story -->
-          <div class="col-md-4">
-            <div class="story_box" data-aos="fade-up" data-aos-duration="1500">
-              <div class="story_img">
-                <img src="{% static 'images/story01.png' %}" alt="image">
-                <span>45 min ago</span>
-              </div>
-              <div class="story_text">
-                <h3>Cool features added!</h3>
-                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry lorem Ipsum has.</p>
-                <a href="blog-single.html">READ MORE</a>
-              </div>
-            </div>
-          </div>
-    
-          <!-- story -->
-          <div class="col-md-4">
-            <div class="story_box" data-aos="fade-up" data-aos-duration="1500">
-              <div class="story_img">
-                <img src="{% static 'images/story02.png' %}" alt="image">
-                <span>45 min ago</span>
-              </div>
-              <div class="story_text">
-                <h3>Top rated app! Yupp.</h3>
-                <p>Simply dummy text of the printing and typesetting industry lorem Ipsum has Lorem Ipsum is.</p>
-                <a href="blog-single.html">READ MORE</a>
-              </div>
-            </div>
-          </div>
-    
-          <!-- story -->
-          <div class="col-md-4">
-            <div class="story_box" data-aos="fade-up" data-aos-duration="1500">
-              <div class="story_img">
-                <img src="{% static 'images/story03.png' %}" alt="image">
-                <span>45 min ago</span>
-              </div>
-              <div class="story_text">
-                <h3>Creative ideas on app.</h3>
-                <p>Printing and typesetting industry lorem Ipsum has Lorem simply dummy text of the.</p>
-                <a href="blog-single.html">READ MORE</a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- row end -->
-      </div>
-      <!-- container end -->
-    </section>
+ 
     
     <!-- Story-Section-end -->
 

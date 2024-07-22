@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     "solo",
     "settings",
     "ckeditor",
+    "home",
 ]
 
 CORS_ALLOWED_ORIGINS = [
@@ -165,9 +166,8 @@ USE_TZ = True
 STATIC_URL = "/static/"
 STATIC_ROOT = BASE_DIR / "static/"
 
-
 MEDIA_URL = "/media/"
-MEDIA_ROOT = BASE_DIR / "media"
+MEDIA_ROOT = BASE_DIR / "media/"
 
 # OneSignal Configuration
 ONE_SIGNAL_APP_ID = "a5b0b78a-8af8-406e-804d-1bd72ba79136"
