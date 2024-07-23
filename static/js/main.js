@@ -345,7 +345,19 @@ $(document).ready(function(){
     $('aside').animate({width: 'toggle'}, 200);
   });
 })();
-
+document.addEventListener('DOMContentLoaded', function() {
+  // Handle clicks on elements with data-toggle="modall"
+  document.querySelectorAll('[data-toggle="modall"]').forEach(function(element) {
+    element.addEventListener('click', function(event) {
+      event.preventDefault(); // Prevent the default action of the link
+      const targetSelector = element.getAttribute('data-target');
+      const targetModal = document.querySelector(targetSelector);
+      if (targetModal) {
+        $(targetModal).modal('show'); // Use Bootstrap's jQuery method to show the modal
+      }
+    });
+  });
+});
 
 // INITIALIZE AOS
 

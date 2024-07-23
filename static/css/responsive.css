@@ -93,7 +93,7 @@
      /* navigation section */
     .navbar-expand-lg .navbar-nav {align-items: flex-start;}
     .navbar-toggler {padding-right: 0; line-height: 1.7;}
-    .navbar-expand-lg .navbar-nav {padding: 20px 15px; background-color: var(--bg-white); border-radius: 15px; box-shadow: 0 4px 10px #EDE9FE;}
+    .navbar-expand-lg .navbar-nav {padding: 20px 15px; background-color: #089cac; border-radius: 15px; box-shadow: 0 4px 10px #EDE9FE;}
     .navbar-expand-lg .navbar-nav .nav-link.dark_btn {margin-left: 0; margin-top: 15px;}
     .navbar-expand-lg .navbar-nav .has_dropdown {flex-direction: column; align-items: flex-start; width: 100%; box-shadow: none;}
     .navbar-expand-lg .navbar-nav .has_dropdown:hover {box-shadow: none;}

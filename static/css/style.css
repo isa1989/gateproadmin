@@ -866,10 +866,9 @@ header.fixed .navbar {
 }
 
 .modal-backdrop.show {
-    z-index: 99999;
+    z-index: 1050 !important; /* Higher value to ensure it appears above other elements */
     opacity: .7;
 }
-
 .youtube-video .modal-dialog {
     position: absolute;
     left: 0;
