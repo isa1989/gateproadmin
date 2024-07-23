@@ -67,16 +67,20 @@
               <li class="nav-item">
                 <a class="nav-link dark_btn" href="contact.html">Order Now</a>
               </li>
+              {% if home_page %}
               <li class="nav-item">
-                <a class="nav-link" href="https://wa.me/yourwhatsappnumber" target="_blank" title="WhatsApp">
+                <a class="nav-link" href="{{home_page.whatsapp}}" target="_blank" title="WhatsApp">
                     <i class="fab fa-whatsapp"></i>
                 </a>
             </li>
+            {% endif %}
+            {% if home_page %}
             <li class="nav-item">
-                <a class="nav-link" href="https://www.instagram.com/yourinstagramprofile" target="_blank" title="Instagram">
+                <a class="nav-link" href="{{home_page.instagram}}" target="_blank" title="Instagram">
                     <i class="fab fa-instagram"></i>
                 </a>
             </li>
+            {% endif %}
             </ul>
           </div>
         </nav>
