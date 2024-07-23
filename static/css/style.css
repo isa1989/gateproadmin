@@ -697,7 +697,7 @@ header.fixed .navbar {
 /* hero banner heading h1 */
 .banner_section .banner_text h1 {
     font-size: 130px;
-    color: var(--dark-purple);
+    color: #ffffff;
     letter-spacing: -1px;
     font-weight: 700;
 }
@@ -708,14 +708,14 @@ header.fixed .navbar {
 
 .banner_section .banner_text h2 {
     font-size: 30px;
-    color: var(--dark-purple);
+    color: #ffffff;
     letter-spacing: -1px;
     font-weight: 700;
     padding: 15px 0 10px 0;
 }
 
 .banner_section .banner_text h2 span {
-    color: #28b0ac;
+    color: #ffffff;
 }
 
 .banner_section .banner_text p {
