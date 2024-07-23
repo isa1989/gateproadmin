@@ -1977,8 +1977,13 @@ footer .app_btn li:last-child {
 }
 
 footer .bottom_footer {
-    background-color: var(--bg-purple);
+    background-color: #089cac;
 }
+
+.go_top img {
+    width: 25%; /* Orijinal boyutun dörtte biri */
+    height: auto; /* Yüksekliği otomatik olarak orantılı ayarla */
+  }
 
 /* footer heading and text colors variable */
 footer h2,
