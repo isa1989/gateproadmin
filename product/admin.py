@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Product, ProductImage, Order
+from .models import Product, ProductImage, Order, WebOrder
 from modeltranslation.admin import TranslationAdmin
 
 
@@ -16,3 +16,4 @@ class ProductAdmin(TranslationAdmin):
 
 admin.site.register(ProductImage)
 admin.site.register(Order)
+admin.site.register(WebOrder)

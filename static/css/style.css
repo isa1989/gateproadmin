@@ -1448,6 +1448,7 @@ iframe#youtubevideo {
 .nav-item a .fab {
     color: #ffffff;
     font-size: 1.2em;
+    margin-left: 10px;
 }
 
 .pricing_section .toggle_block .tog_block {

@@ -10,6 +10,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
+
   <title>OİLİNK</title>
 
   <link rel="stylesheet" href="{% static 'css/icofont.min.css' %}">
@@ -56,47 +60,18 @@
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto"
               <li class="nav-item">
+                <a class="nav-link" href="#pricing">Product</a>
+              </li>
+              <li class="nav-item">
                 <a class="nav-link" href="#features">Features</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="#how_it_work">FAQ</a>
               </li>
+             
               <li class="nav-item">
-                <a class="nav-link" href="#pricing">Product</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link dark_btn" href="#" data-toggle="modal" data-target="#customOrderModal">Order Now</a>
-              </li>
-              
-              <!-- Custom Modal structure -->
-              <div class="modal fade custom-modal" id="customOrderModal" tabindex="-1" role="dialog" aria-labelledby="customOrderModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title" id="customOrderModalLabel">Order Now</h5>
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                      </button>
-                    </div>
-                    <div class="modal-body">
-                      <form>
-                        <div class="form-group">
-                          <label for="phoneNumber">Phone Number</label>
-                          <input type="text" class="form-control" id="phoneNumber" placeholder="Enter your phone number">
-                        </div>
-                        <div class="form-group">
-                          <label for="product">Product</label>
-                          <input type="text" class="form-control" id="product" placeholder="Enter the product name">
-                        </div>
-                      </form>
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                      <button type="button" class="btn btn-primary">Submit Order</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
+                <a class="nav-link dark_btn" href="#pricing">Order Now</a>
+            </li>
               {% if home_page %}
               <li class="nav-item">
                 <a class="nav-link" href="{{home_page.whatsapp}}" target="_blank" title="WhatsApp">
@@ -457,234 +432,37 @@
           <!-- p -->
           <p>Lorem Ipsum is simply dummy text of the printing and typesetting <br> industry. Lorem Ipsum has been the standard dummy.</p>
         </div>
-        <!-- toggle button -->
-        <div class="toggle_block" data-aos="fade-up" data-aos-duration="1500">
-          <span class="month active">Monthly</span>
-          <div class="tog_block">
-            <span class="tog_btn"></span>
-          </div>
-          <span class="years">Yearly</span>
-          <span class="offer">50% off</span>
-        </div>
-    
         <!-- pricing box monthly start -->
         <div class="pricing_pannel monthly_plan active" data-aos="fade-up" data-aos-duration="1500">
           <!-- row start -->
-          <div class="row">
-            <!-- pricing box 1 -->
-            <div class="col-md-4">
+          <div class="row justify-content-center">
+          {% for product in products %}
+            <div class="col-md-4" >
               <div class="pricing_block">
+                
                 <div class="icon">
-                  <img src="{% static 'images/standard.png' %}" alt="image">
+                  <img src="{{ product.thumbnail.url }}" alt="image" style="width: 100px; height: 100px;">
                 </div>
                 <div class="pkg_name">
-                  <h3>Standard</h3>
+                  <h3>{{ product.name }}</h3>
                   <span>For the basics</span>
                 </div>
-                <span class="price">$15</span>
+                <span class="price">{{ product.price }}</span>
                 <ul class="benifits">
                   <li>
-                    <p>Up to 5 Website</p>
-                  </li>
-                  <li>
-                    <p>50 GB disk space</p>
-                  </li>
-                  <li>
-                    <p>10 Customize sub pages</p>
-                  </li>
-                  <li>
-                    <p>2 Domains access</p>
-                  </li>
-                  <li>
-                    <p>Support on request</p>
+                    <p>{{ product.description}}</p>
                   </li>
                 </ul>
-                <a href="contact.html" class="btn white_btn">BUY NOW</a>
+                <a href="#" class="btn white_btn" data-toggle="modal" data-target="#buyNowModal" data-product-id="{{ product.id }}">BUY NOW</a>
               </div>
             </div>
-    
-            <!-- pricing box 2 -->
-            <div class="col-md-4">
-              <div class="pricing_block highlited_block">
-                <div class="icon">
-                  <img src="{% static 'images/unlimited.png' %}" alt="image">
-                </div>
-                <div class="pkg_name">
-                  <h3>Unlimited</h3>
-                  <span>For the professionals</span>
-                </div>
-                <span class="price">$99</span>
-                <ul class="benifits">
-                  <li>
-                    <p>Unlimited Website</p>
-                  </li>
-                  <li>
-                    <p>200 GB disk space</p>
-                  </li>
-                  <li>
-                    <p>20 Customize sub pages</p>
-                  </li>
-                  <li>
-                    <p>10 Domains access</p>
-                  </li>
-                  <li>
-                    <p>24/7 Customer support</p>
-                  </li>
-                </ul>
-                <a href="contact.html" class="btn white_btn">BUY NOW</a>
-              </div>
-            </div>
-    
-            <!-- pricing box 3 -->
-            <div class="col-md-4">
-              <div class="pricing_block">
-                <div class="icon">
-                  <img src="{% static 'images/premium.png' %}" alt="image">
-                </div>
-                <div class="pkg_name">
-                  <h3>Premium</h3>
-                  <span>For small team</span>
-                </div>
-                <span class="price">$55</span>
-                <ul class="benifits">
-                  <li>
-                    <p>Up to 10 Website</p>
-                  </li>
-                  <li>
-                    <p>100 GB disk space</p>
-                  </li>
-                  <li>
-                    <p>15 Customize sub pages</p>
-                  </li>
-                  <li>
-                    <p>4 Domains access</p>
-                  </li>
-                  <li>
-                    <p>24/7 Customer support</p>
-                  </li>
-                </ul>
-                <a href="contact.html" class="btn white_btn">BUY NOW</a>
-              </div>
-            </div>
-          </div>
-          <!-- row end -->
-        </div>
-        <!-- pricing box monthly end -->
-    
-        <!-- pricing box yearly start -->
-        <div class="pricing_pannel yearly_plan">
-          <div class="row">
-            <!-- pricing box 1 -->
-            <div class="col-md-4">
-              <div class="pricing_block">
-                <div class="icon">
-                  <img src="{% static 'images/standard.png' %}" alt="image">
-                </div>
-                <div class="pkg_name">
-                  <h3>Standard</h3>
-                  <span>For the basics</span>
-                </div>
-                <span class="price">$150</span>
-                <ul class="benifits">
-                  <li>
-                    <p>Up to 10 Website</p>
-                  </li>
-                  <li>
-                    <p>100 GB disk space</p>
-                  </li>
-                  <li>
-                    <p>25 Customize sub pages</p>
-                  </li>
-                  <li>
-                    <p>4 Domains access</p>
-                  </li>
-                  <li>
-                    <p>Support on request</p>
-                  </li>
-                </ul>
-                <a href="contact.html" class="btn white_btn">BUY NOW</a>
-              </div>
-            </div>
-    
-            <!-- pricing box 2 -->
-            <div class="col-md-4">
-              <div class="pricing_block highlited_block">
-                <div class="icon">
-                  <img src="{% static 'images/unlimited.png' %}" alt="image">
-                </div>
-                <div class="pkg_name">
-                  <h3>Unlimited</h3>
-                  <span>For the professionals</span>
-                </div>
-                <span class="price">$999</span>
-                <ul class="benifits">
-                  <li>
-                    <p>Unlimited Website</p>
-                  </li>
-                  <li>
-                    <p>400 GB disk space</p>
-                  </li>
-                  <li>
-                    <p>40 Customize sub pages</p>
-                  </li>
-                  <li>
-                    <p>20 Domains access</p>
-                  </li>
-                  <li>
-                    <p>24/7 Customer support</p>
-                  </li>
-                </ul>
-                <a href="contact.html" class="btn white_btn">BUY NOW</a>
-              </div>
-            </div>
-    
-            <!-- pricing box 3 -->
-            <div class="col-md-4">
-              <div class="pricing_block">
-                <div class="icon">
-                  <img src="{% static 'images/premium.png' %}" alt="image">
-                </div>
-                <div class="pkg_name">
-                  <h3>Premium</h3>
-                  <span>For small team</span>
-                </div>
-                <span class="price">$550</span>
-                <ul class="benifits">
-                  <li>
-                    <p>Up to 20 Website</p>
-                  </li>
-                  <li>
-                    <p>200 GB disk space</p>
-                  </li>
-                  <li>
-                    <p>25 Customize sub pages</p>
-                  </li>
-                  <li>
-                    <p>8 Domains access</p>
-                  </li>
-                  <li>
-                    <p>24/7 Customer support</p>
-                  </li>
-                </ul>
-                <a href="contact.html" class="btn white_btn">BUY NOW</a>
-              </div>
-            </div>
+          {% endfor %}
+         
           </div>
         </div>
-        <!-- pricing box yearly end -->
-    
-        {% comment %} <p class="contact_text" data-aos="fade-up" data-aos-duration="1500">Not sure what to choose ? <a href="#">contact us</a> for custom packages</p> {% endcomment %}
       </div>
-      <!-- container end -->
     </section>
-    
-    <!-- Pricing-Section end -->
-
-    <!-- FAQ-Section start -->
-   
-    <!-- FAQ-Section end -->
-
-    <!-- Beautifull-interface-Section start -->
+   <!-- Beautifull-interface-Section start -->
     <section class="row_am interface_section">
       <!-- container start -->
       <div class="container-fluid">
@@ -809,10 +587,41 @@
         <!-- go top button -->
         <div class="go_top">
   <span><img src="{% static 'images/go_top.png' %}" alt="Go to Top"></span>
+  
 </div>
 
     </footer>
     <!-- Footer-Section end -->
+    <!-- Modal -->
+<div class="modal fade" id="buyNowModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Purchase Product</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="buyNowForm" method="post">
+          {% csrf_token %}
+          <div class="form-group">
+            <label for="phoneNumber">Phone Number</label>
+            <div class="input-group">
+                <span class="input-group-text">+994</span>
+                <input type="text" class="form-control" id="phoneNumber" name="phone_number" placeholder="Enter your phone number" maxlength="9">
+            </div>
+        </div>
+          <!-- Hidden field to store product ID -->
+          <input type="hidden" id="productId" name="product">
+          <input type="hidden" name="status" value="Pending">
+          <div id="formErrors" class="alert alert-danger" style="display: none;"></div>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
 
   <!-- VIDEO MODAL -->
   <div class="modal fade youtube-video" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">

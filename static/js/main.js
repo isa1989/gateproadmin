@@ -358,6 +358,50 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
 });
+$(document).ready(function() {
+  // Set the product ID in the hidden field and clear the phone number when a modal is opened
+  $('a[data-toggle="modal"]').on('click', function() {
+    var productId = $(this).data('product-id');
+    $('#productId').val(productId);
+    // Clear previous message
+    $('#messageContainer').empty();
+  });
+
+  // Handle form submission
+  $('#buyNowForm').on('submit', function(event) {
+    event.preventDefault();
+
+    var phoneNumber = $('#phoneNumber').val();
+    var productId = $('#productId').val();
+    var status = "Pending"; // Static status value
+
+    $.ajax({
+      url: '', // URL to handle the POST request
+      type: 'POST',
+      data: {
+        phone_number: '+994' + phoneNumber, // Append the prefix to the phone number
+        product: productId,                 // Field names must match the form field names
+        status: status,
+        csrfmiddlewaretoken: $('input[name="csrfmiddlewaretoken"]').val()
+      },
+      success: function(response) {
+        // Display success message
+        $('#messageContainer').html('<div class="alert alert-success">' + response.message + '</div>');
+        // Hide the modal
+        $('#buyNowModal').modal('hide');
+        // Clear form fields
+        $('#buyNowForm')[0].reset();
+      },
+      error: function(xhr, status, error) {
+        // Display error message
+        $('#messageContainer').html('<div class="alert alert-danger">An error occurred while processing your request.</div>');
+        console.error('AJAX Error:', status, error);
+      }
+    });
+  });
+});
+
+
 
 // INITIALIZE AOS
 
