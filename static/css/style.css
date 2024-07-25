@@ -484,6 +484,12 @@ header.fixed .navbar {
     width: 150px;
 }
 
+@media screen and (max-width: 768px) {
+    .navbar-expand-lg .navbar-nav .nav-link.dark_btn {
+        padding: 5px 8px!important;
+        margin-top: 0!important;
+    }
+}
 /* navigation bar dropdown */
 .navbar-expand-lg .navbar-nav .has_dropdown {
     display: flex;
@@ -598,7 +604,7 @@ header.fixed .navbar {
       width: 25px;
       margin: 10px 0;
       position: relative;
-      border-top: 4px solid var(--purple);
+      border-top: 4px solid var(--text-white);
       display: block;
   }
 
@@ -606,7 +612,7 @@ header.fixed .navbar {
   .toggle-bar::after {
       content: "";
       display: block;
-      background: var(--purple);
+      background: var(--text-white);
       height: 4px;
       width: 30px;
       position: absolute;

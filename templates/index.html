@@ -73,19 +73,22 @@
                 <a class="nav-link dark_btn" href="#pricing">Order Now</a>
             </li>
               {% if home_page %}
-              <li class="nav-item">
+              <li class="nav-item d-flex">
                 <a class="nav-link" href="{{home_page.whatsapp}}" target="_blank" title="WhatsApp">
                     <i class="fab fa-whatsapp"></i>
                 </a>
+                <a class="nav-link" href="{{home_page.instagram}}" target="_blank" title="Instagram">
+                  <i class="fab fa-instagram"></i>
+              </a>
             </li>
             {% endif %}
-            {% if home_page %}
+            {% comment %} {% if home_page %}
             <li class="nav-item">
                 <a class="nav-link" href="{{home_page.instagram}}" target="_blank" title="Instagram">
                     <i class="fab fa-instagram"></i>
                 </a>
             </li>
-            {% endif %}
+            {% endif %} {% endcomment %}
             </ul>
           </div>
         </nav>
