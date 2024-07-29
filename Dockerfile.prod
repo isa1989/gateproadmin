@@ -13,13 +13,13 @@ RUN apt-get update && apt-get install -y \
     python3-dev \
     gcc \
     postgresql-client \
+    gettext \
     && rm -rf /var/lib/apt/lists/*
 
 # Install Python dependencies
 COPY requirements.txt requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt \
-    && pip install gunicorn \ 
-    gettext
+    && pip install gunicorn
     
 
 # Copy the current directory contents into the container at /app
