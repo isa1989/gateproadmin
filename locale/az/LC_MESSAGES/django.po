@@ -16,6 +16,7 @@ msgstr "Sifariş et"
 
 msgid "Are you tired of carrying keys?"
 msgstr "Açar axtarmaqdan bezmisen?"
+
 msgid "Connect with Oilink and experience the freedom from key boundaries."
 msgstr "Oilink -ə qoşul və bir klikə qapını aç!"
 

@@ -17,6 +17,9 @@ msgstr "Заказать"
 msgid "Are you tired of carrying keys?"
 msgstr "Вам надоело носить ключи?"
 
+msgid "Connect with Oilink and experience the freedom from key boundaries"
+msgstr "Свяжитесь с Oilink и ощутите свободу от ключевых ограничений"
+
 msgid "Features that makes app different!"
 msgstr "Особенности, которые делают приложение особенным!"
 
