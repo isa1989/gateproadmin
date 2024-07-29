@@ -18,7 +18,8 @@ RUN apt-get update && apt-get install -y \
 # Install Python dependencies
 COPY requirements.txt requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt \
-    && pip install gunicorn
+    && pip install gunicorn \ 
+    gettext
     
 
 # Copy the current directory contents into the container at /app
