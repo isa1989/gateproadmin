@@ -1,4 +1,6 @@
 {% load static %}
+{% load i18n %}
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -59,19 +61,28 @@
 
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto"
-              <li class="nav-item">
-                <a class="nav-link" href="#pricing">Product</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#features">Features</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#how_it_work">FAQ</a>
-              </li>
-             
-              <li class="nav-item">
-                <a class="nav-link dark_btn" href="#pricing">Order Now</a>
+            <li class="nav-item">
+              <a class="nav-link" href="#pricing">{% trans "Product" %}</a>
             </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#features">{% trans "Features" %}</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#how_it_work">{% trans "FAQ" %}</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link dark_btn" href="#pricing">{% trans "Order Now" %}</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <span id="selectedLang">az</span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="?lang=az" onclick="setLanguage('az')">az</a>
+                  <a class="dropdown-item" href="?lang=en" onclick="setLanguage('en')">en</a>
+                  <a class="dropdown-item" href="?lang=ru" onclick="setLanguage('ru')">ru</a>
+              </div>
+          </li>
               {% if home_page %}
               <li class="nav-item d-flex">
                 <a class="nav-link" href="{{home_page.whatsapp}}" target="_blank" title="WhatsApp">
@@ -109,9 +120,9 @@
               <!-- h1 -->
               <h1>Oilink</h1>
               <!-- h2 -->
-              <h2>Best way to <span>manage your customers.</span></h2>
+              <h2>{% trans "Are you tired of carrying keys?" %}</h2>
               <!-- p -->
-              <p>Lorem Ipsum is simply dummy text of the printing and setting indus orem Ipsum has been the industrys.
+              <p>{% trans "Connect with Oilink and experience the freedom from key boundaries." %}
               </p>
             </div>
             <!-- app buttons -->
@@ -177,83 +188,16 @@
       </div>
       <!-- container end -->
     </section>
-    <!-- Banner-Section-end -->
-
-    <!-- Trusted Section start -->
-    {% comment %} <section class="row_am trusted_section">
-      <!-- container start -->
-      <div class="container">
-        <div class="section_title" data-aos="fade-up" data-aos-duration="1500" data-aos-delay="100">
-          <!-- h2 -->
-          <h2>Trusted by <span>150+</span> companies</h2>
-          <!-- p -->
-          <p>Lorem Ipsum is simply dummy text of the printing and typese tting <br> indus orem Ipsum has beenthe
-            standard dummy.</p>
-        </div>
-
-        <!-- logos slider start -->
-        <div class="company_logos" >
-          <div id="company_slider" class="owl-carousel owl-theme">
-            <div class="item">
-              <div class="logo">
-                <img src="{% static 'images/paypal.png' %}" alt="PayPal Logo">
-              </div>
-            </div>
-            <div class="item">
-              <div class="logo">
-                <img src="{% static 'images/spoty.png' %}" alt="Spoty Logo">
-              </div>
-            </div>
-            <div class="item">
-              <div class="logo">
-                <img src="{% static 'images/shopboat.png' %}" alt="Shopboat Logo">
-              </div>
-            </div>
-            <div class="item">
-              <div class="logo">
-                <img src="{% static 'images/slack.png' %}" alt="Slack Logo">
-              </div>
-            </div>
-            <div class="item">
-              <div class="logo">
-                <img src="{% static 'images/envato.png' %}" alt="Envato Logo">
-              </div>
-            </div>
-            <div class="item">
-              <div class="logo">
-                <img src="{% static 'images/paypal.png' %}" alt="PayPal Logo">
-              </div>
-            </div>
-            <div class="item">
-              <div class="logo">
-                <img src="{% static 'images/spoty.png' %}" alt="Spoty Logo">
-              </div>
-            </div>
-            <div class="item">
-              <div class="logo">
-                <img src="{% static 'images/shopboat.png' %}" alt="Shopboat Logo">
-              </div>
-            </div>
-            
-          </div>
-        </div>
-        <!-- logos slider end -->
-      </div>
-      <!-- container end -->
-    </section> {% endcomment %}
-    <!-- Trusted Section ends -->
-
-
+   
     <!-- Features-Section-Start -->
     <section class="row_am features_section" id="features">
       <!-- container start -->
       <div class="container">
         <div class="section_title" data-aos="fade-up" data-aos-duration="1500" data-aos-delay="100">
           <!-- h2 -->
-          <h2><span>Features</span> that makes app different!</h2>
+          <h2>{% trans "Features that makes app different!" %}</h2>
           <!-- p -->
-          <p>Lorem Ipsum is simply dummy text of the printing and typese tting <br> indus orem Ipsum has beenthe
-            standard dummy.</p>
+          <p>{% trans "Our IoT devices replace traditional keys and remotes, allowing you to open doors effortlessly." %}</p>
         </div>
         <div class="feature_detail">
           <!-- feature box left -->
@@ -511,9 +455,9 @@
             <div class="col-md-6">
               <div class="free_text">
                 <div class="section_title">
-                  <h2>Let’s download free from apple and play store</h2>
-                  <p>Instant free download from apple and play store orem Ipsum is simply dummy text of the printing.
-                    and typese tting indus orem Ipsum has beenthe standard</p>
+                  <h2>{% trans "Download our app and order your device NOW!" %}</h2>
+                  {% comment %} <p>Instant free download from apple and play store orem Ipsum is simply dummy text of the printing.
+                    and typese tting indus orem Ipsum has beenthe standard</p> {% endcomment %}
                 </div>
                 <ul class="app_btn">
                   <li>

@@ -1,0 +1,27 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+
+msgid "Product"
+msgstr "Продукт"
+
+msgid "Features"
+msgstr "Функции"
+
+msgid "FAQ"
+msgstr "ЧаВо"
+
+msgid "Order Now"
+msgstr "Заказать"
+
+msgid "Are you tired of carrying keys?"
+msgstr "Вам надоело носить ключи?"
+
+msgid "Features that makes app different!"
+msgstr "Особенности, которые делают приложение особенным!"
+
+msgid "Our IoT devices replace traditional keys and remotes, allowing you to open doors effortlessly."
+msgstr "Наши устройства Интернета вещей заменяют традиционные ключи и пульты дистанционного управления, позволяя вам открывать двери без усилий."
+
+msgid "Download our app and order your device NOW!"
+msgstr "Загрузите мобильное приложение и закажите устройства Oilink прямо сейчас"

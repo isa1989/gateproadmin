@@ -401,6 +401,11 @@ $(document).ready(function() {
   });
 });
 
+function setLanguage(lang) {
+  var url = new URL(window.location.href);
+  url.searchParams.set('lang', lang);
+  window.location.href = url.href;
+};
 
 
 // INITIALIZE AOS
