@@ -401,12 +401,43 @@ $(document).ready(function() {
   });
 });
 
+document.getElementById('navbarDropdown').addEventListener('click', function () {
+  var menu = document.querySelector('.dropdown-menu');
+  menu.classList.toggle('show');
+});
+
+// Dil seçimini URL'den al ve güncelle
+function updateSelectedLang() {
+  var url = new URL(window.location.href);
+  var selectedLang = url.searchParams.get('lang') || 'az'; // URL'den dil parametresini al, varsayılan olarak 'az' kullan
+
+  // Seçili dil öğesini güncelle
+  document.getElementById('selectedLang').textContent = selectedLang;
+
+  // Dropdown menüsündeki tüm öğeleri al
+  var items = document.querySelectorAll('.dropdown-item');
+  
+  // Tüm öğelerden 'selected' sınıfını kaldır
+  items.forEach(function(item) {
+      item.classList.remove('selected');
+  });
+
+  // Seçili dil öğesine 'selected' sınıfını ekle
+  var selectedItem = document.querySelector('.dropdown-item[href="?lang=' + selectedLang + '"]');
+  if (selectedItem) {
+      selectedItem.classList.add('selected');
+  }
+}
+
+// Sayfa yüklendiğinde seçili dili güncelle
+document.addEventListener('DOMContentLoaded', updateSelectedLang);
+
+// Dil seçimini güncellemek için
 function setLanguage(lang) {
   var url = new URL(window.location.href);
   url.searchParams.set('lang', lang);
   window.location.href = url.href;
-};
-
+}
 
 // INITIALIZE AOS
 
