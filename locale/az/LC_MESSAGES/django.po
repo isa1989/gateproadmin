@@ -28,3 +28,6 @@ msgstr "Oilink mobil tədbiqi vasitəsi ilə bütün mobil cihazlardan eləcəd�
 
 msgid "Download our app and order your device NOW!"
 msgstr "Mobil tədbiqi indi yüklə və Oilink cihazlarını indi sifarish et."
+
+msgid "Submit"
+msgstr "Sifariş et"

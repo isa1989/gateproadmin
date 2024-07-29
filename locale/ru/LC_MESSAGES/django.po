@@ -28,3 +28,6 @@ msgstr "Наши устройства Интернета вещей заменя
 
 msgid "Download our app and order your device NOW!"
 msgstr "Загрузите мобильное приложение и закажите устройства Oilink прямо сейчас"
+
+msgid "Submit"
+msgstr "Заказать"

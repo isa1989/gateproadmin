@@ -17,7 +17,9 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
 
   <title>OİLİNK</title>
-
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{% static 'css/icofont.min.css' %}">
 <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}">
 <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
@@ -563,7 +565,7 @@
           <input type="hidden" id="productId" name="product">
           <input type="hidden" name="status" value="Pending">
           <div id="formErrors" class="alert alert-danger" style="display: none;"></div>
-          <button type="submit" class="btn btn-primary">Submit</button>
+          <button type="submit" class="btn btn-primary">{% trans "Submit" %}</button>
         </form>
       </div>
     </div>
