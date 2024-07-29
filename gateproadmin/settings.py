@@ -100,22 +100,22 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "gateproadmin.wsgi.application"
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
-    }
-}
 # DATABASES = {
 #     "default": {
-#         "ENGINE": "django.db.backends.postgresql",
-#         "NAME": os.getenv("DATABASE_NAME"),
-#         "USER": os.getenv("DATABASE_USER"),
-#         "PASSWORD": os.getenv("DATABASE_PASS"),
-#         "HOST": os.getenv("HOST"),
-#         "PORT": os.getenv("PORT"),
+#         "ENGINE": "django.db.backends.sqlite3",
+#         "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
 #     }
 # }
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": os.getenv("DATABASE_NAME"),
+        "USER": os.getenv("DATABASE_USER"),
+        "PASSWORD": os.getenv("DATABASE_PASS"),
+        "HOST": os.getenv("HOST"),
+        "PORT": os.getenv("PORT"),
+    }
+}
 
 
 # Password validation
@@ -164,18 +164,13 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 STATIC_URL = "/static/"
-STATICFILES_DIRS = [
-    BASE_DIR / "static",
-    # Add more directories if needed
-    # os.path.join(BASE_DIR, 'another_static_directory'),
-]
+STATIC_ROOT = BASE_DIR / "static/"
+
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media/"
 LOCALE_PATHS = (os.path.join(BASE_DIR, "locale"),)
-# OneSignal Configuration
-ONE_SIGNAL_APP_ID = "a5b0b78a-8af8-406e-804d-1bd72ba79136"
-ONE_SIGNAL_API_KEY = "YjA3NmFkMTEtMWZiOS00MGU4LWIzYjktOTcwMDVjN2IzYTQy"
-# Default primary key field type
+
+
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
