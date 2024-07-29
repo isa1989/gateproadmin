@@ -416,7 +416,7 @@ function updateSelectedLang() {
 
   // Dropdown menüsündeki tüm öğeleri al
   var items = document.querySelectorAll('.dropdown-item');
-  
+
   // Tüm öğelerden 'selected' sınıfını kaldır
   items.forEach(function(item) {
       item.classList.remove('selected');
@@ -438,6 +438,8 @@ function setLanguage(lang) {
   url.searchParams.set('lang', lang);
   window.location.href = url.href;
 }
+
+
 
 // INITIALIZE AOS
 

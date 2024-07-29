@@ -1456,7 +1456,48 @@ iframe#youtubevideo {
     font-size: 1.2em;
     margin-left: 10px;
 }
+@media (max-width: 767px) {
+    .dropdown-menu {
+        display: flex;
+        flex-direction: row;
+        padding: 0;
+        box-shadow: none;
+        border: none;
+        background: transparent;
+        position: relative;
+        margin: 0;
+    }
 
+    .dropdown-item {
+        /* border: 1px solid #ddd; */
+        border-radius: 4px;
+        padding: 1px 9px;
+        color: white;
+    }
+
+    .dropdown-menu .dropdown-item:last-child {
+        margin-right: 0;
+    }
+
+    /* Dropdown toggle menüsü mobilde görünmeyecek */
+    .dropdown-toggle {
+        display: none;
+    }
+}
+
+/* Web görünümü için stil */
+@media (min-width: 768px) {
+    .dropdown-menu {
+        display: none;
+        color: white;
+    }
+}
+
+/* Seçili dil stilini vurgulamak için */
+.dropdown-item.selected {
+    background-color: #28b0ac;
+    color: white;
+}
 .pricing_section .toggle_block .tog_block {
     width: 70px;
     height: 35px;
