@@ -116,6 +116,3 @@ msgstr "Gözəl interfeys"
 #: .\templates\index.html:455
 msgid "Download our app and order your device NOW!"
 msgstr "Mobil tədbiqi indi yüklə və Oilink cihazlarını indi sifarish et."
-
-#~ msgid "Submit"
-#~ msgstr "Sifariş et"
