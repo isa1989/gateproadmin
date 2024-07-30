@@ -1,33 +1,116 @@
 msgid ""
 msgstr ""
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-07-30 11:56+0400\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 
+#: .\templates\index.html:67
 msgid "Product"
 msgstr "Продукт"
 
+#: .\templates\index.html:70
 msgid "Features"
 msgstr "Функции"
 
+#: .\templates\index.html:73
 msgid "FAQ"
-msgstr "ЧаВо"
+msgstr "ФAГ"
 
+#: .\templates\index.html:76 .\templates\index.html:566
 msgid "Order Now"
 msgstr "Заказать"
 
+#: .\templates\index.html:126
 msgid "Are you tired of carrying keys?"
 msgstr "Вам надоело носить ключи?"
 
+#: .\templates\index.html:128
 msgid "Connect with Oilink and experience the freedom from key boundaries."
 msgstr "Свяжитесь с Oilink и ощутите свободу от ключевых ограничений"
 
+#: .\templates\index.html:203
 msgid "Features that makes app different!"
 msgstr "Особенности, которые делают приложение особенным!"
 
+#: .\templates\index.html:205
 msgid "Our IoT devices replace traditional keys and remotes, allowing you to open doors effortlessly."
 msgstr "Наши устройства Интернета вещей заменяют традиционные ключи и пульты дистанционного управления, позволяя вам открывать двери без усилий."
 
+#: .\templates\index.html:216
+msgid "Secure data"
+msgstr "Безопасные данные"
+
+#: .\templates\index.html:217
+msgid "Our secure data solutions ensure robust protection against unauthorized access, using advanced encryption methods and secure protocols."
+msgstr "Наши решения по защите данных обеспечивают надежную защиту от несанкционированного доступа, используя передовые методы шифрования и защищенные протоколы."
+
+#: .\templates\index.html:227
+msgid "Fully functional"
+msgstr "Полностью работоспособный"
+
+#: .\templates\index.html:228
+msgid "Our fully functional systems are designed to optimize efficiency and performance, providing seamless integration with your existing infrastructure."
+msgstr "Наши полнофункциональные системы разработаны для оптимизации эффективности и производительности, обеспечивая бесшовную интеграцию с вашей существующей инфраструктурой."
+
+#: .\templates\index.html:243
+msgid "Live chat"
+msgstr "Живой чат"
+
+#: .\templates\index.html:244
+msgid "Engage with your customers in real-time with our live chat feature, offering instant support and personalized assistance."
+msgstr "Общайтесь со своими клиентами в режиме реального времени с помощью нашей функции чата, предлагающей мгновенную поддержку и персонализированную помощь."
+
+#: .\templates\index.html:254
+msgid "24-7 Support"
+msgstr "Поддержка 24/7"
+
+#: .\templates\index.html:255
+msgid "Our 24-7 support team is always available to address your queries and resolve issues promptly, ensuring uninterrupted operations and peace of mind."
+msgstr "Наша круглосуточная служба поддержки всегда готова ответить на ваши вопросы и оперативно решить проблемы, гарантируя бесперебойную работу и душевное спокойствие."
+
+#: .\templates\index.html:290
+msgid "How it works - 3 easy steps"
+msgstr "Как это работает - 3 простых шага"
+
+#: .\templates\index.html:309
+msgid "Download app"
+msgstr "Загрузить приложение"
+
+#: .\templates\index.html:314
+msgid "Download App either IOS or Android"
+msgstr "Загрузите приложение для iOS или Android"
+
+#: .\templates\index.html:331
+msgid "Create account"
+msgstr "Зарегистрироваться"
+
+#: .\templates\index.html:332
+msgid "Sign up free for App account. One account for all devices."
+msgstr "Зарегистрируйте бесплатно учетную запись приложения. Одна учетная запись для всех устройств."
+
+#: .\templates\index.html:349
+msgid "It’s done, enjoy the app"
+msgstr "Готово, наслаждайтесь приложением"
+
+#: .\templates\index.html:350
+msgid "Have any questions check our FAQs"
+msgstr "Если у вас есть вопросы, проверьте наши ФАГы"
+
+#: .\templates\index.html:351
+msgid "Get most amazing app experience, Explore and share the app"
+msgstr "Получите самые невероятные впечатления от приложения, исследуйте и делитесь приложением"
+
+#: .\templates\index.html:379
+msgid "Best & simple pricing"
+msgstr "Лучшее и простое ценообразование"
+
+#: .\templates\index.html:417
+msgid "Beautiful interface"
+msgstr "Красивый интерфейс."
+
+#: .\templates\index.html:455
 msgid "Download our app and order your device NOW!"
 msgstr "Загрузите мобильное приложение и закажите устройства Oilink прямо сейчас"
 
-msgid "Submit"
-msgstr "Заказать"
+#~ msgid "Submit"
+#~ msgstr "Заказать"

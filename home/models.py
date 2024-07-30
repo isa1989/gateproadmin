@@ -11,6 +11,8 @@ class HomePage(models.Model):
     instagram = models.URLField(
         blank=True, null=True, help_text="Enter your Instagram URL"
     )
+    app_store = models.URLField(blank=True, null=True, verbose_name="App Store URL")
+    play_store = models.URLField(blank=True, null=True, verbose_name="Play Store URL")
 
 
 class ScreenFrame(models.Model):

@@ -128,22 +128,24 @@
               </p>
             </div>
             <!-- app buttons -->
+            {% if home_page %}
             <ul class="app_btn">
               <li>
-                <a href="#">
+                <a href="{{ home_page.app_store }}" target="_blank">
                   <img class="blue_img" src="{% static 'images/appstore_blue.png' %}" alt="image">
                   <img class="white_img" src="{% static 'images/appstore_white.png' %}" alt="image">
 
                 </a>
               </li>
               <li>
-                <a href="#">
+                <a href="{{ home_page.play_store }}" target="_blank">
                   <img class="blue_img" src="{% static 'images/googleplay_blue.png' %}" alt="image">
                   <img class="white_img" src="{% static 'images/googleplay_white.png' %}" alt="image">
 
                 </a>
               </li>
             </ul>
+            {% endif %}
 
             <!-- users -->
             <div class="used_app">
@@ -210,8 +212,8 @@
                 <img src="{% static 'images/secure_data.png' %}" alt="Secure data">
               </div>
               <div class="text">
-                <h4>Secure data</h4>
-                <p>Lorem Ipsum is simply dummy text of the printing and type setting indus ideas.</p>
+                <h4>{% trans "Secure data" %}</h4>
+                <p>{% trans "Our secure data solutions ensure robust protection against unauthorized access, using advanced encryption methods and secure protocols." %}</p>
               </div>
             </div>
           
@@ -221,8 +223,8 @@
                 <img src="{% static 'images/functional.png' %}" alt="Fully functional">
               </div>
               <div class="text">
-                <h4>Fully functional</h4>
-                <p>Simply dummy text of the printing and typesetting indus lorem Ipsum is dummy.</p>
+                <h4>{% trans "Fully functional" %}</h4>
+                <p>{% trans "Our fully functional systems are designed to optimize efficiency and performance, providing seamless integration with your existing infrastructure." %}</p>
               </div>
             </div>
           </div>
@@ -237,8 +239,8 @@
                 <img src="{% static 'images/live-chat.png' %}" alt="Live chat">
               </div>
               <div class="text">
-                <h4>Live chat</h4>
-                <p>Lorem Ipsum is simply dummy text of the printing and type setting indus ideas.</p>
+                <h4>{% trans "Live chat" %}</h4>
+                <p>{% trans "Engage with your customers in real-time with our live chat feature, offering instant support and personalized assistance." %}</p>
               </div>
             </div>
             
@@ -248,8 +250,8 @@
                 <img src="{% static 'images/support.png' %}" alt="24-7 Support">
               </div>
               <div class="text">
-                <h4>24-7 Support</h4>
-                <p>Simply dummy text of the printing and typesetting indus lorem Ipsum is dummy.</p>
+                <h4>{% trans "24-7 Support" %}</h4>
+                <p>{% trans "Our 24-7 support team is always available to address your queries and resolve issues promptly, ensuring uninterrupted operations and peace of mind." %}</p>
               </div>
             </div>
             
@@ -284,10 +286,8 @@
         <div class="how_it_inner">
           <div class="section_title" data-aos="fade-up" data-aos-duration="1500" data-aos-delay="300">
             <!-- h2 -->
-            <h2><span>How it works</span> - 3 easy steps</h2>
+            <h2><span>{% trans "How it works - 3 easy steps" %}</h2>
             <!-- p -->
-            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry lorem Ipsum has been the
-              standard dummy.</p>
           </div>
           <div class="step_block">
     
@@ -305,13 +305,12 @@
                   </div>
                   <!-- text -->
                   <div class="step_text" data-aos="fade-right" data-aos-duration="1500">
-                    <h4>Download app</h4>
+                    <h4>{% trans "Download app" %}</h4>
                     <div class="app_icon">
                       <a href="#"><i class="icofont-brand-android-robot"></i></a>
                       <a href="#"><i class="icofont-brand-apple"></i></a>
-                      <a href="#"><i class="icofont-brand-windows"></i></a>
                     </div>
-                    <p>Download App either for Windows, Mac or Android</p>
+                    <p>{% trans "Download App either IOS or Android" %}</p>
                   </div>
                 </div>
               </div>
@@ -328,9 +327,8 @@
                   </div>
                   <!-- text -->
                   <div class="step_text step2" data-aos="fade-right" data-aos-duration="1500">
-                    <h4>Create account</h4>
-                    <span>14 days free trial</span>
-                    <p>Sign up free for App account. One account for all devices.</p>
+                    <h4>{% trans "Create account" %}</h4><br>
+                    <p>{% trans "Sign up free for App account. One account for all devices." %}</p>
                   </div>
                 </div>
               </div>
@@ -347,9 +345,9 @@
                   </div>
                   <!-- text -->
                   <div class="step_text step3" data-aos="fade-right" data-aos-duration="1500">
-                    <h4>It’s done, enjoy the app</h4>
-                    <span>Have any questions check our FAQs</span>
-                    <p>Get most amazing app experience, Explore and share the app</p>
+                    <h4>{% trans "It’s done, enjoy the app" %}</h4>
+                    <span>{% trans "Have any questions check our FAQs" %}</span>
+                    <p>{% trans "Get most amazing app experience, Explore and share the app" %}</p>
                   </div>
                 </div>
               </div>
@@ -377,9 +375,8 @@
       <div class="container">
         <div class="section_title" data-aos="fade-up" data-aos-duration="1500" data-aos-delay="300">
           <!-- h2 -->
-          <h2>Best & simple <span>pricing</span></h2>
+          <h2>{% trans "Best & simple pricing" %}</h2>
           <!-- p -->
-          <p>Lorem Ipsum is simply dummy text of the printing and typesetting <br> industry. Lorem Ipsum has been the standard dummy.</p>
         </div>
         <!-- pricing box monthly start -->
         <div class="pricing_pannel monthly_plan active" data-aos="fade-up" data-aos-duration="1500">
@@ -394,7 +391,6 @@
                 </div>
                 <div class="pkg_name">
                   <h3>{{ product.name }}</h3>
-                  <span>For the basics</span>
                 </div>
                 <span class="price">{{ product.price }}</span>
                 <ul class="benifits">
@@ -417,11 +413,9 @@
       <div class="container-fluid">
         <div class="section_title" data-aos="fade-up" data-aos-duration="1500" data-aos-delay="300">
           <!-- h2 -->
-          <h2>Beautiful <span>interface</span></h2>
+          <h2>{% trans "Beautiful interface" %}</span></h2>
           <!-- p -->
-          <p>
-            Lorem Ipsum is simply dummy text of the printing and typesetting <br> industry. Lorem Ipsum has been the standard dummy.
-          </p>
+          
         </div>
     
         <!-- screen slider start -->
@@ -461,18 +455,20 @@
                   {% comment %} <p>Instant free download from apple and play store orem Ipsum is simply dummy text of the printing.
                     and typese tting indus orem Ipsum has beenthe standard</p> {% endcomment %}
                 </div>
+                {% if home_page %}
                 <ul class="app_btn">
                   <li>
-                    <a href="#">
+                    <a href="{{ home_page.app_store}}" target="_blank">
                       <img src="{% static 'images/appstore_blue.png' %}" alt="image">
                     </a>
                   </li>
                   <li>
-                    <a href="#">
+                    <a href="{{ home_page.play_store}}" target="_blank">
                       <img src="{% static 'images/googleplay_blue.png' %}" alt="image">
                     </a>
                   </li>
                 </ul>
+                {% endif %}
               </div>
             </div>
     
