@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-30 11:56+0400\n"
+"POT-Creation-Date: 2024-07-30 15:24+0400\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 
 #: .\templates\index.html:67
@@ -115,6 +115,10 @@ msgstr ""
 
 #: .\templates\index.html:379
 msgid "Best & simple pricing"
+msgstr ""
+
+#: .\templates\index.html:402
+msgid "BUY NOW"
 msgstr ""
 
 #: .\templates\index.html:417

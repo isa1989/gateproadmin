@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-30 11:56+0400\n"
+"POT-Creation-Date: 2024-07-30 15:24+0400\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 
 #: .\templates\index.html:67
@@ -46,32 +46,51 @@ msgid "Secure data"
 msgstr "Təhlükəsiz məlumat"
 
 #: .\templates\index.html:217
-msgid "Our secure data solutions ensure robust protection against unauthorized access, using advanced encryption methods and secure protocols."
-msgstr "Təhlükəsiz məlumat həllərimiz qabaqcıl şifrələmə üsullarından və təhlükəsiz protokollardan istifadə edərək, icazəsiz girişə qarşı möhkəm müdafiəni təmin edir."
+msgid ""
+"Our secure data solutions ensure robust protection against unauthorized "
+"access, using advanced encryption methods and secure protocols."
+msgstr ""
+"Təhlükəsiz məlumat həllərimiz qabaqcıl şifrələmə üsullarından və təhlükəsiz "
+"protokollardan istifadə edərək, icazəsiz girişə qarşı möhkəm müdafiəni təmin "
+"edir."
 
 #: .\templates\index.html:227
 msgid "Fully functional"
 msgstr "Tam funksional"
 
 #: .\templates\index.html:228
-msgid "Our fully functional systems are designed to optimize efficiency and performance, providing seamless integration with your existing infrastructure."
-msgstr "Tam funksional sistemlərimiz səmərəliliyi və performansı optimallaşdırmaq üçün hazırlanıb, mövcud sistemlərlə qüsursuz inteqrasiyanı təmin edir"
+msgid ""
+"Our fully functional systems are designed to optimize efficiency and "
+"performance, providing seamless integration with your existing "
+"infrastructure."
+msgstr ""
+"Tam funksional sistemlərimiz səmərəliliyi və performansı optimallaşdırmaq "
+"üçün hazırlanıb, mövcud sistemlərlə qüsursuz inteqrasiyanı təmin edir"
 
 #: .\templates\index.html:243
 msgid "Live chat"
 msgstr "Canlı söhbət"
 
 #: .\templates\index.html:244
-msgid "Engage with your customers in real-time with our live chat feature, offering instant support and personalized assistance."
-msgstr "Ani dəstək və fərdi yardım təklif edən canlı söhbət funksiyamızla real vaxt rejimində müştərilərinizlə əlaqə saxlayın."
+msgid ""
+"Engage with your customers in real-time with our live chat feature, offering "
+"instant support and personalized assistance."
+msgstr ""
+"Ani dəstək və fərdi yardım təklif edən canlı söhbət funksiyamızla real vaxt "
+"rejimində müştərilərinizlə əlaqə saxlayın."
 
 #: .\templates\index.html:254
 msgid "24-7 Support"
 msgstr "24-7 Dəstək"
 
 #: .\templates\index.html:255
-msgid "Our 24-7 support team is always available to address your queries and resolve issues promptly, ensuring uninterrupted operations and peace of mind."
-msgstr "24/7 dəstək komandamız fasiləsiz əməliyyatları və dincliyi təmin edərək, sorğularınızı həll etmək və problemləri operativ həll etmək üçün həmişə hazırdır."
+msgid ""
+"Our 24-7 support team is always available to address your queries and "
+"resolve issues promptly, ensuring uninterrupted operations and peace of mind."
+msgstr ""
+"24/7 dəstək komandamız fasiləsiz əməliyyatları və dincliyi təmin edərək, "
+"sorğularınızı həll etmək və problemləri operativ həll etmək üçün həmişə "
+"hazırdır."
 
 #: .\templates\index.html:290
 msgid "How it works - 3 easy steps"
@@ -91,7 +110,8 @@ msgstr "Hesab yarat"
 
 #: .\templates\index.html:332
 msgid "Sign up free for App account. One account for all devices."
-msgstr "Tətbiq hesabı üçün pulsuz qeydiyyatdan keçin. Bütün cihazlar üçün bir hesab."
+msgstr ""
+"Tətbiq hesabı üçün pulsuz qeydiyyatdan keçin. Bütün cihazlar üçün bir hesab."
 
 #: .\templates\index.html:349
 msgid "It’s done, enjoy the app"
@@ -103,11 +123,16 @@ msgstr "Hər hansı bir sualınız varsa, tez-tez verilən suallara baxın"
 
 #: .\templates\index.html:351
 msgid "Get most amazing app experience, Explore and share the app"
-msgstr "Ən heyrətamiz tətbiq təcrübəsi əldə edin, proqramı araşdırın və paylaşın"
+msgstr ""
+"Ən heyrətamiz tətbiq təcrübəsi əldə edin, proqramı araşdırın və paylaşın"
 
 #: .\templates\index.html:379
 msgid "Best & simple pricing"
 msgstr "Ən yaxşı və sadə qiymətlər"
+
+#: .\templates\index.html:402
+msgid "BUY NOW"
+msgstr "SİFARİŞ ET"
 
 #: .\templates\index.html:417
 msgid "Beautiful interface"
@@ -115,4 +140,4 @@ msgstr "Gözəl interfeys"
 
 #: .\templates\index.html:455
 msgid "Download our app and order your device NOW!"
-msgstr "Mobil tədbiqi indi yüklə və Oilink cihazlarını indi sifarish et."
+msgstr "Mobil tədbiqi indi yüklə və Oilink cihazlarını indi sifariş et."
