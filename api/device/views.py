@@ -165,7 +165,7 @@ class DeviceDetailView(generics.RetrieveUpdateDestroyAPIView):
         instance = self.get_object()
         mqtt_response = mqtt_listener(instance.deviceNumber)
         serializer = self.get_serializer(
-            instance, context={"mqtt_response": mqtt_response}
+            instance, context={"mqtt_response": mqtt_response, "request": request}
         )
         return Response(serializer.data)
 

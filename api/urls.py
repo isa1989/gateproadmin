@@ -35,13 +35,13 @@ from api.settings.views import ContactUsListAPIView
 urlpatterns = [
     # ------------------------Auth--------------------------
     path(
-        "v1/register/",
+        "register/",
         CustomerPhoneRegistrationView.as_view(),
         name="customer_phone_registration",
     ),
-    path("v1/login/", CustomerPhoneLoginView.as_view(), name="customer_phone_login"),
+    path("login/", CustomerPhoneLoginView.as_view(), name="customer_phone_login"),
     path(
-        "v1/verify-otp/",
+        "verify-otp/",
         CustomerPhoneVerifyOtpView.as_view(),
         name="customer-verify-otp",
     ),
