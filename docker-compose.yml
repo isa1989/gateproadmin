@@ -22,9 +22,6 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    volumes:
-      - media-data:/gateproadmin/media
-      
     ports:
       - "8009:8009"
     depends_on:
@@ -33,11 +30,8 @@ services:
       - DATABASE_URL=postgres://gate_user:P2d6WCLvVtc3NQaVNNb@gatedb:5432/gate_db
     networks:
       - django_nginx_network
-      
-
 volumes:
   postgres_data:
-  media-data:
 
 networks:
   django_nginx_network:
