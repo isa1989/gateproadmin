@@ -15,7 +15,7 @@ services:
     env_file:
       - .env
     networks:
-      - gate-network
+      - django_nginx_network
       
   gateweb:
     restart: always
@@ -32,7 +32,7 @@ services:
     environment:
       - DATABASE_URL=postgres://gate_user:P2d6WCLvVtc3NQaVNNb@gatedb:5432/gate_db
     networks:
-      - gate-network
+      - django_nginx_network
       
 
 volumes:
@@ -40,4 +40,5 @@ volumes:
   media-data:
 
 networks:
-  gate-network:
+  django_nginx_network:
+    external: true
