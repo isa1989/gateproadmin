@@ -56,7 +56,7 @@ CORS_ALLOWED_ORIGINS = [
     "https://api-test.oilink.io",
     "http://api-test.oilink.io",
 ]
-
+X_FRAME_OPTIONS = "SAMEORIGIN"
 CORS_ALLOW_CREDENTIALS = True
 CSRF_COOKIE_SECURE = True
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
