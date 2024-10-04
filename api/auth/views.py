@@ -224,6 +224,7 @@ def transform_request_data(customer, request_data=None):
             "name": customer.name,
             "surname": customer.surname,
             "email_address": customer.email_address,
+            "phone_number": customer.phone_number,
         }
 
 
