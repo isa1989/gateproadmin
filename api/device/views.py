@@ -241,9 +241,9 @@ class InviteMemberAPIView(generics.CreateAPIView):
         serializer = self.get_serializer(data=request.data)
         if serializer.is_valid():
             phoneNumber = serializer.validated_data.get("phoneNumber")
-
-            # Implement your logic to send invitation to phoneNumber here
-            # For example, you might send an SMS or email invitation
+            member, created = Customer.objects.get_or_create(phone_number=phoneNumber)
+            device.members.add(member)
+            device.save()
 
             return Response({"message": "Invitation sent successfully."})
         else:
