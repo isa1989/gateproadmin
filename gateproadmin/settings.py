@@ -54,9 +54,11 @@ INSTALLED_APPS = [
 
 CORS_ALLOWED_ORIGINS = [
     "https://api-test.oilink.io",
+    "https://api.oilink.io",
 ]
 CSRF_TRUSTED_ORIGINS = [
     "https://api-test.oilink.io",
+    "https://api.oilink.io",
 ]
 
 
