@@ -41,7 +41,7 @@ def mqtt_listener(deviceNumber):
                 result = False
             client.disconnect()
 
-    broker_address = "46.32.168.23"
+    broker_address = "mqtt.galltech.az"
     port = 1883
     client = mqtt.Client()
     client.on_connect = on_connect
