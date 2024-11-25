@@ -1,22 +1,25 @@
 import re
-from rest_framework import generics, status
-from django.http import JsonResponse
-from rest_framework.response import Response
-from rest_framework.permissions import AllowAny
+import threading
+
+import paho.mqtt.client as mqtt
 from django.db.models import Q
-from device.models import Device, CarPlate
-from customer.models import Customer
+from django.http import JsonResponse
+from rest_framework import generics, status
+from rest_framework.permissions import AllowAny
+from rest_framework.response import Response
+from rest_framework.views import APIView
+
 from api.auth.auth import get_customer_from_token
+from api.permissions import IsCustomerAuthenticated, IsOwnerOfDevice
+from customer.models import Customer
+from device.models import CarPlate, Device
+
 from .serializers import (
+    CarPlateSerializer,
     DeviceSerializer,
     InviteMemberSerializer,
     MemberSerializer,
-    CarPlateSerializer,
 )
-from api.permissions import IsCustomerAuthenticated, IsOwnerOfDevice
-import paho.mqtt.client as mqtt
-import threading
-from rest_framework.views import APIView
 
 
 def mqtt_listener(deviceNumber):
@@ -251,33 +254,43 @@ class InviteMemberAPIView(generics.CreateAPIView):
 
 
 class RemoveMemberFromDeviceAPIView(generics.RetrieveDestroyAPIView):
-    permission_classes = [IsCustomerAuthenticated, IsOwnerOfDevice]
+    permission_classes = [IsCustomerAuthenticated]
     queryset = Device.objects.all()
     lookup_url_kwarg = "deviceId"
 
     def delete(self, request, *args, **kwargs):
-
         token = self.request.headers.get("Authorization")
         customer = get_customer_from_token(token)
 
         try:
-            device = Device.objects.get(id=kwargs["deviceId"], owner=customer)
+            device = Device.objects.get(id=kwargs["deviceId"])
         except Device.DoesNotExist:
             return JsonResponse(
-                {"message": "Device not found or you are not the owner."},
+                {"message": "Device not found."},
                 status=status.HTTP_404_NOT_FOUND,
             )
 
-        # Check if the memberId exists in members of the device
-        if device.members.filter(id=kwargs["memberId"]).exists():
-            device.members.remove(kwargs["memberId"])
-            return Response({"message": "Member removed successfully."})
+        # Eğer customer cihazın sahibi ise
+        if device.owner == customer:
+            # Üye cihazın üyeleri arasında mı kontrol et
+            if device.members.filter(id=kwargs["memberId"]).exists():
+                device.members.remove(kwargs["memberId"])
+                return Response({"message": "Member removed successfully."})
+            else:
+                return JsonResponse(
+                    {"message": "Member not found in device."},
+                    status=status.HTTP_404_NOT_FOUND,
+                )
 
-        else:
-            return JsonResponse(
-                {"message": "Member not found in device."},
-                status=status.HTTP_404_NOT_FOUND,
-            )
+        # Eğer customer cihazın sahibi değilse, sadece kendisini silebilir
+        elif device.members.filter(id=customer.id).exists():
+            device.members.remove(customer)
+            return Response({"message": "You have been removed from the device."})
+
+        return JsonResponse(
+            {"message": "You are not the owner or a member of this device."},
+            status=status.HTTP_403_FORBIDDEN,
+        )
 
 
 class DeviceMembersListView(generics.ListAPIView):
